@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e91a6eecfbe5be43b66e1b22e128161, type: 3}
   m_Name: Explode Behaviour
   m_EditorClassIdentifier: 
+  _optionName: Explode
+  _thumbnail: {fileID: 21300000, guid: ecf368bdfabacf744864e00a0b21ab21, type: 3}

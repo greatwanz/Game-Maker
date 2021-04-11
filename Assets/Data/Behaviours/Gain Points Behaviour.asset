@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b7d71da9594d746a359ed3b19eb899, type: 3}
   m_Name: Gain Points Behaviour
   m_EditorClassIdentifier: 
+  _optionName: Gain Points
+  _thumbnail: {fileID: 21300000, guid: e3ac91c48332fa5479ac7e36d6c9d5ca, type: 3}
