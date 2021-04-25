@@ -1,31 +1,48 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
 {
     public class EntityEditor : MonoBehaviour
     {
-        [SerializeField] private Button[] panelSelectButtons;
+        [Header("References")]
+        [SerializeField] private Transform buttonRoot;
         [SerializeField] private NonDraggableScrollRect entitiesScrollView;
-        [SerializeField] private NonDraggableScrollRect behavioursScrollView;
-        [Space]
+        [Header("Prefab")]
         [SerializeField] private EditorOption entityOptionPrefab;
-        [SerializeField] private EntityData[] entityData;
-        [SerializeField] private EntityBehaviour[] behaviourData;
+        [SerializeField] private EditorPanelButton editorPanelButton;
+        [Header("Definitions")]
+        [SerializeField] private EditorPanelType[] editorPanelTypes;
+
+        private List<EditorOption> editorOptions;
 
         void Start()
         {
-            foreach (var data in entityData)
+            editorOptions = new List<EditorOption>();
+
+            foreach (var panelType in editorPanelTypes)
             {
-                EditorOption e = Instantiate(entityOptionPrefab, entitiesScrollView.content);
-                e.Setup(data);
+                foreach (var option in panelType.entityOptionTypes)
+                {
+                    EditorOption e = Instantiate(entityOptionPrefab, entitiesScrollView.content);
+                    e.Setup(option, panelType);
+                    editorOptions.Add(e);
+                }
+
+                EditorPanelButton button = Instantiate(editorPanelButton, buttonRoot);
+                button.Setup(panelType.panelName);
+                button.Bind(new UnityEngine.Events.UnityAction(() => SwitchPanelToType(panelType)));
             }
 
-            foreach (var data in behaviourData)
+            SwitchPanelToType(editorPanelTypes[0]);
+        }
+
+        void SwitchPanelToType(EditorPanelType panelType)
+        {
+            foreach (var e in editorOptions)
             {
-                EditorOption e = Instantiate(entityOptionPrefab, behavioursScrollView.content);
-                e.Setup(data);
+                e.gameObject.SetActive(panelType == e.panelType);
             }
         }
     }

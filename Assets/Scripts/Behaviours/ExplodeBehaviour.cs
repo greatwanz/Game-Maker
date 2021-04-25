@@ -7,7 +7,10 @@ namespace Greatwanz.GameMaker
     {
         public override void Execute(Entity e)
         {
+        }
 
+        public override void Setup(Entity e)
+        {
         }
     }
 }

@@ -5,14 +5,15 @@ namespace Greatwanz.GameMaker
 {
     public class Entity : MonoBehaviour
     {
-        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private MeshFilter _meshFilter;
+
+        public MeshFilter meshFilter
+        {
+            get { return _meshFilter; }
+            private set { _meshFilter = value; }
+        }
 
         private List<EntityBehaviour> entityBehaviours = new List<EntityBehaviour>();
-
-        public void Setup(Mesh mesh)
-        {
-            meshFilter.mesh = mesh;
-        }
 
         public void AddBehaviour(EntityBehaviour behaviour)
         {
@@ -22,6 +23,11 @@ namespace Greatwanz.GameMaker
         public void RemoveBehaviour(EntityBehaviour behaviour)
         {
             entityBehaviours.Remove(behaviour);
+        }
+
+        public void OnMouseDown()
+        {
+            ExecuteBehaviours();
         }
 
         public void ExecuteBehaviours()
