@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f103c83c95561a4589fb067d175e3fa, type: 3}
-  m_Name: OnDragEditorOption
+  m_Script: {fileID: 11500000, guid: 2926dad69ce431f4481b45f413680b97, type: 3}
+  m_Name: ScoreVariable
   m_EditorClassIdentifier: 
+  _value: 0

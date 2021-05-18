@@ -8,14 +8,15 @@ namespace Greatwanz.GameMaker
     public class DragImage : MonoBehaviour
     {
         [Header("Prefab")]
-        [SerializeField] private Entity dragEntityPrefab;
+        [SerializeField] private Entity _dragEntityPrefab;
         [Header("References")]
-        [SerializeField] private Image dragImage;
+        [SerializeField] private Image _dragImage;
 
         private EditorOptionType editorOption;
         private Entity dragEntity;
+        private List<RaycastResult> results = new List<RaycastResult>();
 
-        private void Start()
+        private void OnEnable()
         {
             transform.position = Input.mousePosition;
         }
@@ -24,66 +25,70 @@ namespace Greatwanz.GameMaker
         {
             if (Input.GetMouseButtonUp(0))
             {
+                gameObject.SetActive(false);
+                dragEntity.gameObject.SetActive(false);
+
                 if (!IsPointerOverUIObject())
                 {
-                    gameObject.SetActive(false);
-                    dragEntity.gameObject.SetActive(false);
                     editorOption.OnDrop();
                 }
-                else
-                {
-                    gameObject.SetActive(false);
-                    dragEntity.gameObject.SetActive(false);
-                }
             }
-            else if (Input.GetMouseButtonUp(1))
+            else if (Input.GetMouseButtonDown(1))
             {
                 gameObject.SetActive(false);
                 dragEntity.gameObject.SetActive(false);
             }
             else
             {
-                if (IsPointerOverUIObject())
-                {
-                    dragImage.enabled = true;
-                    transform.position = Input.mousePosition;
-                    dragEntity.gameObject.SetActive(false);
-                }
-                else
-                {
-                    dragImage.enabled = false;
-                    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
-                    dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
-                    dragEntity.gameObject.SetActive(true);
-                }
+                ShowDrag(editorOption.mesh);
             }
         }
 
         public void EnableDragImage(EditorOptionType option)
         {
-            if (dragEntity == null)
+            if (!dragEntity)
             {
-                dragEntity = Instantiate(dragEntityPrefab);
-                dragEntity.gameObject.SetActive(false);
+                dragEntity = Instantiate(_dragEntityPrefab);
                 Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
                 dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
-                dragEntity.name = "Drag Entity";
-            }
-            else
-            {
-                option.Setup(dragEntity);
             }
 
+            option.Setup(dragEntity);
             gameObject.SetActive(true);
-            dragImage.sprite = option.thumbnail;
+            _dragImage.sprite = option.thumbnail;
             editorOption = option;
         }
 
-        public static bool IsPointerOverUIObject()
+        private void ShowDrag(bool hasMesh)
+        {
+            if (hasMesh)
+            {
+                if (IsPointerOverUIObject())
+                {
+                    dragEntity.gameObject.SetActive(false);
+                    _dragImage.enabled = true;
+                    transform.position = Input.mousePosition;
+                }
+                else
+                {
+                    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
+                    dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
+                    dragEntity.gameObject.SetActive(true);
+                    _dragImage.enabled = false;
+                }
+            }
+            else
+            {
+                dragEntity.gameObject.SetActive(false);
+                _dragImage.enabled = true;
+                transform.position = Input.mousePosition;
+            }
+        }
+
+        private bool IsPointerOverUIObject()
         {
             PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
             eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
             return results.Count > 0;
         }

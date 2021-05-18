@@ -6,10 +6,10 @@ namespace Greatwanz.GameMaker
 {
     public class EditorOption : MonoBehaviour
     {
-        [SerializeField] private PointerDownHandler pointerDownHandler;
+        [SerializeField] private PointerDownHandler _pointerDownHandler;
 
-        [SerializeField] private Image optionThumbnail;
-        [SerializeField] private Text optionName;
+        [SerializeField] private Image _optionThumbnail;
+        [SerializeField] private Text _optionName;
 
         public EditorPanelType panelType
         {
@@ -19,9 +19,9 @@ namespace Greatwanz.GameMaker
 
         public void Setup(EditorOptionType data, EditorPanelType editorPanelType)
         {
-            optionThumbnail.sprite = data.thumbnail;
-            optionName.text = data.optionName;
-            pointerDownHandler.OnPointerDownEvent.AddListener(data.OnPointerDown);
+            _optionThumbnail.sprite = data.thumbnail;
+            _optionName.text = data.optionName;
+            _pointerDownHandler.OnPointerDownEvent.AddListener(data.OnPointerDown);
             name = data.optionName;
             panelType = editorPanelType;
         }

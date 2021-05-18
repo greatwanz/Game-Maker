@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcead0a6b91f6284bb6f02f5e204eabc, type: 3}
   m_Name: EntityPanel
   m_EditorClassIdentifier: 
-  panelName: Entity
-  entityOptionTypes:
+  _panelName: Entity
+  _entityOptionTypes:
   - {fileID: 11400000, guid: cf0060a05cd550744bd1c865ef602034, type: 2}
   - {fileID: 11400000, guid: caa89e4cdd639cf45a2186a97683eadf, type: 2}

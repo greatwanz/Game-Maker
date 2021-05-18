@@ -3,7 +3,9 @@ guid: 5d2c6c644d22f9841bc74aeeaab6e740
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _thumbnail: {instanceID: 0}
+  - onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

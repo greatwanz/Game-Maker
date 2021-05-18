@@ -16,4 +16,4 @@ MonoBehaviour:
   _thumbnail: {fileID: 21300000, guid: 5a9658131b05bf04e8aafc5feefb9f92, type: 3}
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _entity: {fileID: 8474118886007659290, guid: 22cbe09411e06ad4691a45f0dce9473f, type: 3}
-  onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
+  _onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}

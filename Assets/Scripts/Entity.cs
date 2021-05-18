@@ -7,17 +7,16 @@ namespace Greatwanz.GameMaker
     {
         [SerializeField] private MeshFilter _meshFilter;
 
-        public MeshFilter meshFilter
-        {
-            get { return _meshFilter; }
-            private set { _meshFilter = value; }
-        }
+        public MeshFilter meshFilter => _meshFilter;
 
-        private List<EntityBehaviour> entityBehaviours = new List<EntityBehaviour>();
+        [SerializeField] private readonly List<EntityBehaviour> entityBehaviours = new List<EntityBehaviour>();
 
         public void AddBehaviour(EntityBehaviour behaviour)
         {
-            entityBehaviours.Add(behaviour);
+            if (!entityBehaviours.Contains(behaviour))
+            {
+                entityBehaviours.Add(behaviour);
+            }
         }
 
         public void RemoveBehaviour(EntityBehaviour behaviour)
