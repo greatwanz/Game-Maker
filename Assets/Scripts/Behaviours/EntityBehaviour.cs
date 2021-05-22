@@ -12,6 +12,11 @@ namespace Greatwanz.GameMaker
             onDragEditorOption.Raise(this);
         }
 
+        public override bool HasMesh()
+        {
+            return false;
+        }
+
         public override void OnDrop()
         {
             Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));

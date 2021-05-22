@@ -14,7 +14,8 @@ namespace Greatwanz.GameMaker
 
         private EditorOptionType editorOption;
         private Entity dragEntity;
-        private List<RaycastResult> results = new List<RaycastResult>();
+
+        private bool canInstantiate;
 
         private void OnEnable()
         {
@@ -28,7 +29,7 @@ namespace Greatwanz.GameMaker
                 gameObject.SetActive(false);
                 dragEntity.gameObject.SetActive(false);
 
-                if (!IsPointerOverUIObject())
+                if (canInstantiate && !EventSystem.current.IsPointerOverGameObject())
                 {
                     editorOption.OnDrop();
                 }
@@ -40,12 +41,14 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                ShowDrag(editorOption.mesh);
+                ShowDrag();
             }
         }
 
         public void EnableDragImage(EditorOptionType option)
         {
+            canInstantiate = EventSystem.current.IsPointerOverGameObject();
+
             if (!dragEntity)
             {
                 dragEntity = Instantiate(_dragEntityPrefab);
@@ -59,11 +62,11 @@ namespace Greatwanz.GameMaker
             editorOption = option;
         }
 
-        private void ShowDrag(bool hasMesh)
+        private void ShowDrag()
         {
-            if (hasMesh)
+            if (editorOption.HasMesh())
             {
-                if (IsPointerOverUIObject())
+                if (EventSystem.current.IsPointerOverGameObject())
                 {
                     dragEntity.gameObject.SetActive(false);
                     _dragImage.enabled = true;
@@ -83,14 +86,6 @@ namespace Greatwanz.GameMaker
                 _dragImage.enabled = true;
                 transform.position = Input.mousePosition;
             }
-        }
-
-        private bool IsPointerOverUIObject()
-        {
-            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-            return results.Count > 0;
         }
     }
 }

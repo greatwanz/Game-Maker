@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GainPointsBehaviour
   m_EditorClassIdentifier: 
   _optionName: Gain Points
-  _thumbnail: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _thumbnail: {fileID: 21300000, guid: e3ac91c48332fa5479ac7e36d6c9d5ca, type: 3}
   _mesh: {fileID: 0}
   _entity: {fileID: 0}
   _onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}

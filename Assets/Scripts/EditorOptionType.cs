@@ -9,18 +9,11 @@ namespace Greatwanz.GameMaker
         [SerializeField] private string _optionName;
         [SerializeField] private Sprite _thumbnail;
         [Space]
-        [SerializeField] private Mesh _mesh;
-        [SerializeField] private Entity _entity;
-        [Space]
         [SerializeField] private EditorOptionGameEvent _onDragEditorOption;
-
-        public Mesh mesh => _mesh;
 
         public string optionName => _optionName;
 
         public Sprite thumbnail => _thumbnail;
-
-        protected Entity entity => _entity;
 
         protected EditorOptionGameEvent onDragEditorOption => _onDragEditorOption;
 
@@ -29,6 +22,8 @@ namespace Greatwanz.GameMaker
         public abstract void OnPointerDown(PointerEventData eventData);
 
         public abstract void OnDrop();
+
+        public abstract bool HasMesh();
 
         public override bool Equals(object obj) => this.Equals(obj as EditorOptionType);
 

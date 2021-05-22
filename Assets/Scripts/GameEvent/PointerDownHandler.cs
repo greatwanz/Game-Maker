@@ -11,8 +11,10 @@ namespace Greatwanz.GameMaker
         public PointerEvent OnPointerDownEvent;
         public void OnPointerDown(PointerEventData data)
         {
-            if (OnPointerDownEvent != null)
+            if (Input.GetMouseButtonDown(0) && OnPointerDownEvent != null)
+            {
                 OnPointerDownEvent.Invoke(data);
+            }
         }
     }
 }
