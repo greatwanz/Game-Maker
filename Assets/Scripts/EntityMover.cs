@@ -17,6 +17,21 @@ namespace Greatwanz.GameMaker
         private RaycastHit _hit;
         private Entity _movedEntity;
 
+        private void Awake()
+        {
+            Application.focusChanged += OnFocusChanged;
+        }
+
+        //Not sure why, but GetMouseButtonUp does not get called when MouseButtonDown and Focus occurs on the same frame
+        //This forces user to focus the window before any MouseButtonDown logic gets executed
+        private void OnFocusChanged(bool isFocus)
+        {
+            if (isFocus)
+            {
+                Input.ResetInputAxes();
+            }
+        }
+
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
