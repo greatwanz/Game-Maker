@@ -58,5 +58,11 @@ namespace Greatwanz.GameMaker
             option.panelType = _prefabPanelType;
             _editorOptions.Add(option);
         }
+
+        public void OnPlaymodeToggle(bool isPlaying)
+        {
+            _buttonRoot.gameObject.SetActive(!isPlaying);
+            _entitiesScrollView.gameObject.SetActive(!isPlaying);
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Greatwanz.GameMaker
         private Ray _ray;
         private RaycastHit _hit;
         private Entity _movedEntity;
+        private bool _canMove;
 
         private void Awake()
         {
@@ -34,6 +35,8 @@ namespace Greatwanz.GameMaker
 
         private void Update()
         {
+            if (!_canMove) return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 _curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
@@ -68,6 +71,11 @@ namespace Greatwanz.GameMaker
                 }
                 _movedEntity = null;
             }
+        }
+
+        public void OnPlaymodeToggle(bool isPlaying)
+        {
+            _canMove = !isPlaying;
         }
     }
 }
