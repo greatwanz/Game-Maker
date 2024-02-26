@@ -29,7 +29,7 @@ namespace Greatwanz.GameMaker
             onDragEditorOption.Raise(this);
         }
 
-        public override void OnDrop()
+        public override void OnDrop(Vector3 position)
         {
             Entity e = Instantiate(entity);
             Setup(e);
@@ -38,11 +38,7 @@ namespace Greatwanz.GameMaker
                 e.AddBehaviour(_prefabMetadata.entityData.entityBehaviours);
             }
 
-            //Current location of mouse pointer and distance in front of camera
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
-            //Convert from screen space to world space
-            var curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint);
-            e.transform.position = new Vector3(curPosition.x, curPosition.y, e.transform.position.z);
+            e.transform.position = position;
         }
 
         public override void Setup(Entity e)

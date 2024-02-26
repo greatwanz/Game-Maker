@@ -21,7 +21,7 @@ namespace Greatwanz.GameMaker
 
         public abstract void OnPointerDown(PointerEventData eventData);
 
-        public abstract void OnDrop();
+        public abstract void OnDrop(Vector3 position);
 
         public abstract bool HasMesh();
 

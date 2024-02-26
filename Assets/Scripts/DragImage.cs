@@ -31,7 +31,7 @@ namespace Greatwanz.GameMaker
 
                 if (canInstantiate && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    editorOption.OnDrop();
+                    editorOption.OnDrop(dragEntity.transform.position);
                 }
             }
             else if (Input.GetMouseButtonDown(1))

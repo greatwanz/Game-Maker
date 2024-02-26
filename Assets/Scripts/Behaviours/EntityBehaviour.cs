@@ -17,7 +17,7 @@ namespace Greatwanz.GameMaker
             return false;
         }
 
-        public override void OnDrop()
+        public override void OnDrop(Vector3 position)
         {
             Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(curScreenPoint);
