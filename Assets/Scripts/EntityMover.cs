@@ -53,7 +53,7 @@ namespace Greatwanz.GameMaker
                     }
                 }
             }
-            else if (_movedEntity && (Input.GetMouseButtonUp(0) || Input.GetMouseButtonDown(1)))
+            else if (_movedEntity && Input.GetMouseButtonUp(0))
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {

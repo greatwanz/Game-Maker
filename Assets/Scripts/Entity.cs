@@ -20,6 +20,7 @@ namespace Greatwanz.GameMaker
     public class Entity : MonoBehaviour
     {
         [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private EntityGameEvent _saveEntityEvent;
 
         public MeshFilter meshFilter => _meshFilter;
 
@@ -56,11 +57,19 @@ namespace Greatwanz.GameMaker
 
         public void OnMouseOver()
         {
-            if (!_canTrigger) return;
-
-            if (Input.GetMouseButtonDown(0))
+            if (_canTrigger)
             {
-                ExecuteBehaviours();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ExecuteBehaviours();
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(1))
+                {
+                    _saveEntityEvent.Raise(this);
+                }
             }
         }
 

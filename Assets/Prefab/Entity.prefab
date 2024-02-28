@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meshFilter: {fileID: 8526654747485056690}
+  _saveEntityEvent: {fileID: 11400000, guid: 64d2b261f83a1194fbefb0227012f245, type: 2}
 --- !u!114 &-7229713544036174185
 MonoBehaviour:
   m_ObjectHideFlags: 0
