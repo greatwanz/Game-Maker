@@ -26,7 +26,6 @@ namespace Greatwanz.GameMaker
                 }
             }
 
-            onDragEditorOption.Raise(this);
         }
 
         public override void OnDrop(Vector3 position)

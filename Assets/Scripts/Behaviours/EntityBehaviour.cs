@@ -9,7 +9,6 @@ namespace Greatwanz.GameMaker
 
         public override void OnPointerDown(PointerEventData eventData)
         {
-            onDragEditorOption.Raise(this);
         }
 
         public override bool HasMesh()

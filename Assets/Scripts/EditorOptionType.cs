@@ -8,14 +8,10 @@ namespace Greatwanz.GameMaker
     {
         [SerializeField] private string _optionName;
         [SerializeField] private Sprite _thumbnail;
-        [Space]
-        [SerializeField] private EditorOptionGameEvent _onDragEditorOption;
 
         public string optionName => _optionName;
 
         public Sprite thumbnail => _thumbnail;
-
-        protected EditorOptionGameEvent onDragEditorOption => _onDragEditorOption;
 
         public abstract void Setup(Entity e);
 

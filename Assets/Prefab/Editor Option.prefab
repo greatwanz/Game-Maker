@@ -275,6 +275,7 @@ MonoBehaviour:
   _pointerDownHandler: {fileID: 3962691580574216988}
   _optionThumbnail: {fileID: 5112329441618237850}
   _optionName: {fileID: 6700796793213699137}
+  onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
 --- !u!114 &3962691580574216988
 MonoBehaviour:
   m_ObjectHideFlags: 0
