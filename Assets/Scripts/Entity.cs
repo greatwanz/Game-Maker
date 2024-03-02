@@ -66,7 +66,7 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(2))
                 {
                     _saveEntityEvent.Raise(this);
                 }
