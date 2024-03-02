@@ -6,6 +6,7 @@ namespace Greatwanz.GameMaker
 {
     public abstract class EditorOptionType : ScriptableObject, IEquatable<EditorOptionType>
     {
+        [Header("Definition")]
         [SerializeField] private string _optionName;
         [SerializeField] private Sprite _thumbnail;
 

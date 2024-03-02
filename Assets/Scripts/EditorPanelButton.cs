@@ -7,6 +7,7 @@ namespace Greatwanz.GameMaker
 {
     public class EditorPanelButton : MonoBehaviour
     {
+        [Header("Definition")]
         [SerializeField] private Text _buttonText;
         [SerializeField] private Button _button;
 

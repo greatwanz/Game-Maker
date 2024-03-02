@@ -24,7 +24,7 @@ namespace Greatwanz.GameMaker
         {
             foreach (var panelType in _editorPanelTypes)
             {
-                foreach (var option in panelType._entityOptionTypes)
+                foreach (var option in panelType.EntityOptionTypes)
                 {
                     EditorOption e = Instantiate(_entityOptionPrefab, _entitiesScrollView.content);
                     e.Setup(option, panelType);
@@ -32,7 +32,7 @@ namespace Greatwanz.GameMaker
                 }
 
                 EditorPanelButton button = Instantiate(_editorPanelButton, _buttonRoot);
-                button.Setup(panelType._panelName);
+                button.Setup(panelType.PanelName);
                 button.Bind(new UnityEngine.Events.UnityAction(() => SwitchPanelToType(panelType)));
             }
 

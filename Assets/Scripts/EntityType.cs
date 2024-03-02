@@ -6,6 +6,7 @@ namespace Greatwanz.GameMaker
     [CreateAssetMenu]
     public class EntityType : EditorOptionType
     {
+        [Header("Reference")]
         [SerializeField] private Mesh _mesh;
         [SerializeField] private Entity _entity;
 

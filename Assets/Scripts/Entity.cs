@@ -19,7 +19,9 @@ namespace Greatwanz.GameMaker
 
     public class Entity : MonoBehaviour
     {
+        [Header("Reference")]
         [SerializeField] private MeshFilter _meshFilter;
+        [Header("Game Event")]
         [SerializeField] private EntityGameEvent _saveEntityEvent;
 
         public MeshFilter meshFilter => _meshFilter;

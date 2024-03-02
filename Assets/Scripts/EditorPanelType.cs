@@ -5,7 +5,11 @@ namespace Greatwanz.GameMaker
     [CreateAssetMenu]
     public class EditorPanelType : ScriptableObject
     {
-        public string _panelName;
-        public EditorOptionType[] _entityOptionTypes;
+        [Header("Definition")]
+        [SerializeField] private string _panelName;
+        [SerializeField] private EditorOptionType[] _entityOptionTypes;
+
+        public string PanelName => _panelName;
+        public EditorOptionType[] EntityOptionTypes => _entityOptionTypes;
     }
 }

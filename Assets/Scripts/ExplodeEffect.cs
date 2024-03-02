@@ -4,6 +4,7 @@ namespace Greatwanz.GameMaker
 {
     public class ExplodeEffect : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private ParticleSystem _fireball;
         [SerializeField] private ParticleSystem _fragmentation;
 
