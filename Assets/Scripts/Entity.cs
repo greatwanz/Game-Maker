@@ -68,6 +68,8 @@ namespace Greatwanz.GameMaker
             }
             else
             {
+                if (Input.GetMouseButton(0)) return;
+
                 if (Input.GetMouseButtonDown(1))
                 {
                     Destroy(gameObject);
