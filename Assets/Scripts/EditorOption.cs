@@ -10,7 +10,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private Text _optionName;
         [Header("Game Event")]
         [SerializeField] private PointerDownHandler _pointerDownHandler;
-        [SerializeField] private EditorOptionGameEvent onDragEditorOption;
+        [SerializeField] private EditorOptionGameEvent _onDragEditorOption;
 
         private EditorOptionType _editorOptionType;
 
@@ -33,7 +33,7 @@ namespace Greatwanz.GameMaker
         private void OnPointerDown(UnityEngine.EventSystems.PointerEventData data)
         {
             _editorOptionType.OnPointerDown(data);
-            onDragEditorOption.Raise(_editorOptionType);
+            _onDragEditorOption.Raise(_editorOptionType);
         }
     }
 }
