@@ -16,6 +16,11 @@ namespace Greatwanz.GameMaker
             _buttonText.text = text;
         }
 
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveAllListeners();
+        }
+
         public void Bind(UnityAction action)
         {
             _button.onClick.AddListener(action);

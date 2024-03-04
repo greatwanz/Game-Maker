@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,11 @@ namespace Greatwanz.GameMaker
         {
             get;
             set;
+        }
+
+        private void OnDestroy()
+        {
+            _pointerDownHandler.OnPointerDownEvent.RemoveAllListeners();
         }
 
         public void Setup(EditorOptionType optionType, EditorPanelType editorPanelType)

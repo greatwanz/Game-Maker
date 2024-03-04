@@ -23,6 +23,11 @@ namespace Greatwanz.GameMaker
             Application.focusChanged += OnFocusChanged;
         }
 
+        private void OnDestroy()
+        {
+            Application.focusChanged -= OnFocusChanged;
+        }
+
         //Not sure why, but GetMouseButtonUp does not get called when MouseButtonDown and Focus occurs on the same frame
         //This forces user to focus the window before any MouseButtonDown logic gets executed
         private void OnFocusChanged(bool isFocus)
