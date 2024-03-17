@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Greatwanz.GameMaker
 {
-    public abstract class EditorOptionType : ScriptableObject, IEquatable<EditorOptionType>
+    public abstract class EditorOptionType : ScriptableObject
     {
         [Header("Definition")]
         [SerializeField] private string _optionName;
@@ -21,35 +21,5 @@ namespace Greatwanz.GameMaker
         public abstract void OnDrop(Vector3 position);
 
         public abstract bool HasMesh();
-
-        public override bool Equals(object obj) => this.Equals(obj as EditorOptionType);
-
-        public bool Equals(EditorOptionType other)
-        {
-            return GetType() == other.GetType();
-        }
-
-        public override int GetHashCode()
-        {
-            return GetType().GetHashCode();
-        }
-
-        public static bool operator ==(EditorOptionType lhs, EditorOptionType rhs)
-        {
-            if (lhs is null)
-            {
-                if (rhs is null)
-                {
-                    return true;
-                }
-
-                // Only the left side is null.
-                return false;
-            }
-            // Equals handles case of null on right side.
-            return lhs.Equals(rhs);
-        }
-
-        public static bool operator !=(EditorOptionType lhs, EditorOptionType rhs) => !(lhs == rhs);
     }
 }
