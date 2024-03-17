@@ -10,14 +10,9 @@ namespace Greatwanz.GameMaker
         [Header("References")]
         [SerializeField] private IntVariable _score;
 
-        private void Start()
-        {
-            _score.Set(0);
-        }
-
         public void UpdateScore(int scoreToAdd)
         {
-            _score.Set(_score.value + scoreToAdd);
+            _score.Add(scoreToAdd);
             _scoreText.text = $"Score: {_score.value}";
         }
     }

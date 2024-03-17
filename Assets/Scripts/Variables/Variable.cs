@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Greatwanz.GameMaker
 {
     public class Variable<T> : ScriptableObject
     {
-        [SerializeField] protected T _value;
+        [System.NonSerialized] protected T _value;
 
         public T value
         {
