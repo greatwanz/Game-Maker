@@ -53,7 +53,7 @@ namespace Greatwanz.GameMaker
                     if (entity)
                     {
                         _movedEntity = entity;
-                        _dragEditorOptionEvent.Raise(_movedEntity.entityType);
+                        _dragEditorOptionEvent.Raise(_movedEntity.EntityType);
                         _movedEntity.gameObject.SetActive(false);
                     }
                 }

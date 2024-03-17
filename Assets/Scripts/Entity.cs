@@ -26,11 +26,11 @@ namespace Greatwanz.GameMaker
 
         public MeshFilter meshFilter => _meshFilter;
 
-        private readonly List<EntityBehaviour> entityBehaviours = new List<EntityBehaviour>();
+        private readonly List<EntityBehaviour> _entityBehaviours = new List<EntityBehaviour>();
 
         private bool _canTrigger;
 
-        public EntityType entityType
+        public EntityType EntityType
         {
             get;
             set;
@@ -38,9 +38,9 @@ namespace Greatwanz.GameMaker
 
         public void AddBehaviour(EntityBehaviour behaviour)
         {
-            if (!entityBehaviours.Contains(behaviour))
+            if (!_entityBehaviours.Contains(behaviour))
             {
-                entityBehaviours.Add(behaviour);
+                _entityBehaviours.Add(behaviour);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Greatwanz.GameMaker
 
         public void RemoveBehaviour(EntityBehaviour behaviour)
         {
-            entityBehaviours.Remove(behaviour);
+            _entityBehaviours.Remove(behaviour);
         }
 
         public void OnMouseOver()
@@ -83,7 +83,7 @@ namespace Greatwanz.GameMaker
 
         public void ExecuteBehaviours()
         {
-            foreach (var behaviour in entityBehaviours)
+            foreach (var behaviour in _entityBehaviours)
             {
                 behaviour.Execute(this);
             }
@@ -91,7 +91,7 @@ namespace Greatwanz.GameMaker
 
         public EntityData GetEntityData()
         {
-            return new EntityData(entityType, entityBehaviours);
+            return new EntityData(EntityType, _entityBehaviours);
         }
 
         public void OnPlaymodeToggle(bool isPlaying)

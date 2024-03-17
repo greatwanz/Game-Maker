@@ -31,7 +31,7 @@ namespace Greatwanz.GameMaker
 
         public override void OnDrop(Vector3 position)
         {
-            Entity e = Instantiate(entity);
+            Entity e = Instantiate(_entity);
             Setup(e);
             if (_prefabMetadata != null)
             {
@@ -43,8 +43,8 @@ namespace Greatwanz.GameMaker
 
         public override void Setup(Entity e)
         {
-            e.meshFilter.mesh = mesh;
-            e.entityType = this;
+            e.meshFilter.mesh = _mesh;
+            e.EntityType = this;
         }
 
         public override bool HasMesh()

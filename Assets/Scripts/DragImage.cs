@@ -12,10 +12,10 @@ namespace Greatwanz.GameMaker
         [Header("References")]
         [SerializeField] private Image _dragImage;
 
-        private EditorOptionType editorOption;
-        private Entity dragEntity;
+        private EditorOptionType _editorOption;
+        private Entity _dragEntity;
 
-        private bool canInstantiate;
+        private bool _canInstantiate;
 
         private void OnEnable()
         {
@@ -27,17 +27,17 @@ namespace Greatwanz.GameMaker
             if (Input.GetMouseButtonUp(0))
             {
                 gameObject.SetActive(false);
-                dragEntity.gameObject.SetActive(false);
+                _dragEntity.gameObject.SetActive(false);
 
-                if (canInstantiate && !EventSystem.current.IsPointerOverGameObject())
+                if (_canInstantiate && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    editorOption.OnDrop(dragEntity.transform.position);
+                    _editorOption.OnDrop(_dragEntity.transform.position);
                 }
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 gameObject.SetActive(false);
-                dragEntity.gameObject.SetActive(false);
+                _dragEntity.gameObject.SetActive(false);
             }
             else
             {
@@ -47,42 +47,42 @@ namespace Greatwanz.GameMaker
 
         public void EnableDragImage(EditorOptionType option)
         {
-            canInstantiate = EventSystem.current.IsPointerOverGameObject();
+            _canInstantiate = EventSystem.current.IsPointerOverGameObject();
 
-            if (!dragEntity)
+            if (!_dragEntity)
             {
-                dragEntity = Instantiate(_dragEntityPrefab);
+                _dragEntity = Instantiate(_dragEntityPrefab);
                 Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
-                dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
+                _dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
             }
 
-            option.Setup(dragEntity);
+            option.Setup(_dragEntity);
             gameObject.SetActive(true);
             _dragImage.sprite = option.thumbnail;
-            editorOption = option;
+            _editorOption = option;
         }
 
         private void ShowDrag()
         {
-            if (editorOption.HasMesh())
+            if (_editorOption.HasMesh())
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
-                    dragEntity.gameObject.SetActive(false);
+                    _dragEntity.gameObject.SetActive(false);
                     _dragImage.enabled = true;
                     transform.position = Input.mousePosition;
                 }
                 else
                 {
                     Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
-                    dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
-                    dragEntity.gameObject.SetActive(true);
+                    _dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
+                    _dragEntity.gameObject.SetActive(true);
                     _dragImage.enabled = false;
                 }
             }
             else
             {
-                dragEntity.gameObject.SetActive(false);
+                _dragEntity.gameObject.SetActive(false);
                 _dragImage.enabled = true;
                 transform.position = Input.mousePosition;
             }

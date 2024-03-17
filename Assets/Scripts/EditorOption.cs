@@ -15,11 +15,8 @@ namespace Greatwanz.GameMaker
 
         private EditorOptionType _editorOptionType;
 
-        public EditorPanelType panelType
-        {
-            get;
-            set;
-        }
+        private EditorPanelType _panelType;
+        public EditorPanelType PanelType => _panelType;
 
         private void OnDestroy()
         {
@@ -32,7 +29,7 @@ namespace Greatwanz.GameMaker
             _optionName.text = optionType.optionName;
             _pointerDownHandler.OnPointerDownEvent.AddListener(OnPointerDown);
             name = optionType.optionName;
-            panelType = editorPanelType;
+            _panelType = editorPanelType;
             _editorOptionType = optionType;
         }
 

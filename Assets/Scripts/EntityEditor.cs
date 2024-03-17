@@ -18,7 +18,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
         [SerializeField] private EditorPanelType _prefabPanelType;
 
-        private List<EditorOption> _editorOptions = new List<EditorOption>();
+        private readonly List<EditorOption> _editorOptions = new List<EditorOption>();
 
         void Start()
         {
@@ -33,7 +33,7 @@ namespace Greatwanz.GameMaker
 
                 EditorPanelButton button = Instantiate(_editorPanelButton, _buttonRoot);
                 button.Setup(panelType.PanelName);
-                button.Bind(new UnityEngine.Events.UnityAction(() => SwitchPanelToType(panelType)));
+                button.Bind(() => SwitchPanelToType(panelType));
             }
 
             SwitchPanelToType(_editorPanelTypes[0]);
@@ -44,7 +44,7 @@ namespace Greatwanz.GameMaker
             _editorPanelTypeVariable.Set(panelType);
             foreach (var e in _editorOptions)
             {
-                e.gameObject.SetActive(panelType == e.panelType);
+                e.gameObject.SetActive(panelType == e.PanelType);
             }
         }
 
@@ -55,7 +55,6 @@ namespace Greatwanz.GameMaker
             var metadata = option.gameObject.AddComponent<PrefabMetaData>();
             metadata.entityData = entityData;
             option.Setup(entityData.entityType, _prefabPanelType);
-            option.panelType = _prefabPanelType;
             _editorOptions.Add(option);
             option.gameObject.SetActive(_editorPanelTypeVariable.value == _prefabPanelType);
         }
