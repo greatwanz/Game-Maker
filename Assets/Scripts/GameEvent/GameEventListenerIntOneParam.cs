@@ -8,7 +8,6 @@ namespace Greatwanz.GameMaker
     {
     }
 
-    [System.Serializable]
     public class GameEventListenerIntOneParam : GameEventListenerOneParam<int>
     {
         [SerializeField] protected IntGameEvent gameEvent;

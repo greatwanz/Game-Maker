@@ -8,7 +8,6 @@ namespace Greatwanz.GameMaker
     {
     }
 
-    [System.Serializable]
     public class GameEventListenerEditorOptionOneParam : GameEventListenerOneParam<EditorOptionType>
     {
         [SerializeField] protected EditorOptionGameEvent gameEvent;

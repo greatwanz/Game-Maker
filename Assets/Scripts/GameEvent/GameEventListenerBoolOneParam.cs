@@ -8,7 +8,6 @@ namespace Greatwanz.GameMaker
     {
     }
 
-    [System.Serializable]
     public class GameEventListenerBoolOneParam : GameEventListenerOneParam<bool>
     {
         [SerializeField] protected BoolGameEvent gameEvent;
