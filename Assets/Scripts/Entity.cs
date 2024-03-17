@@ -30,10 +30,13 @@ namespace Greatwanz.GameMaker
 
         private bool _canTrigger;
 
-        public EntityType EntityType
+        private EntityType _entityType;
+        public EntityType EntityType => _entityType;
+
+        public void Setup(EntityType entityType)
         {
-            get;
-            set;
+            _entityType = entityType;
+            meshFilter.mesh = entityType.mesh;
         }
 
         public void AddBehaviour(EntityBehaviour behaviour)

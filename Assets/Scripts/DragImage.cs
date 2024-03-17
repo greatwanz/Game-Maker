@@ -56,7 +56,11 @@ namespace Greatwanz.GameMaker
                 _dragEntity.transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
             }
 
-            option.Setup(_dragEntity);
+            if (option is EntityType e)
+            {
+                _dragEntity.Setup(e);
+            }
+            
             gameObject.SetActive(true);
             _dragImage.sprite = option.thumbnail;
             _editorOption = option;

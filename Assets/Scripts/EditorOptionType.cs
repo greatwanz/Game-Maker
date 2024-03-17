@@ -14,8 +14,6 @@ namespace Greatwanz.GameMaker
 
         public Sprite thumbnail => _thumbnail;
 
-        public abstract void Setup(Entity e);
-
         public abstract void OnPointerDown(PointerEventData eventData);
 
         public abstract void OnDrop(Vector3 position);

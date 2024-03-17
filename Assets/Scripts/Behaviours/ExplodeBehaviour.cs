@@ -16,9 +16,5 @@ namespace Greatwanz.GameMaker
             explodeEffect.Activate();
             Destroy(e.gameObject);
         }
-
-        public override void Setup(Entity e)
-        {
-        }
     }
 }

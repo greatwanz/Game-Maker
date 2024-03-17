@@ -32,19 +32,13 @@ namespace Greatwanz.GameMaker
         public override void OnDrop(Vector3 position)
         {
             Entity e = Instantiate(_entity);
-            Setup(e);
+            e.Setup(this);
             if (_prefabMetadata != null)
             {
                 e.AddBehaviour(_prefabMetadata.entityData.entityBehaviours);
             }
 
             e.transform.position = position;
-        }
-
-        public override void Setup(Entity e)
-        {
-            e.meshFilter.mesh = _mesh;
-            e.EntityType = this;
         }
 
         public override bool HasMesh()

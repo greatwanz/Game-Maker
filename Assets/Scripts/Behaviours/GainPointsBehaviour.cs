@@ -14,9 +14,5 @@ namespace Greatwanz.GameMaker
         {
             _gainPointsEvent.Raise(_pointsToGain);
         }
-
-        public override void Setup(Entity e)
-        {
-        }
     }
 }
