@@ -17,9 +17,15 @@ namespace Greatwanz.GameMaker
             foreach (var e in data)
             {
                 var prefabEntityBehaviour = Instantiate(prefabEntityBehaviourPrefab, _entityBehaviourRootTransform);
-                prefabEntityBehaviour.Setup(e);
+                prefabEntityBehaviour.Setup(e, RemoveEntityBehaviour);
                 _prefabEntityBehaviours.Add(prefabEntityBehaviour);
             } 
+        }
+
+        private void RemoveEntityBehaviour(PrefabEntityBehaviour behaviour)
+        {
+            _prefabEntityBehaviours.Remove(behaviour);
+            Destroy(behaviour.gameObject);
         }
 
         public List<EntityBehaviourData> GetBehaviourData()

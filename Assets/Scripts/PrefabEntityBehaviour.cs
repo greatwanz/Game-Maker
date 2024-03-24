@@ -1,16 +1,20 @@
-
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Greatwanz.GameMaker
 {
-    public class PrefabEntityBehaviour : MonoBehaviour
+    public class PrefabEntityBehaviour : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Prefab")]
         [SerializeField] private PrefabEntityBehaviourParameter prefabEntityBehaviourParameter;
         [Header("Reference")]
-        [SerializeField] private UnityEngine.UI.Image _image;
+        [SerializeField] private UnityEngine.UI.Image _backgroundImage;
+        [SerializeField] private UnityEngine.UI.Image _behaviourImage;
         [SerializeField] private UnityEngine.UI.Text _title;
+
+        private Action<PrefabEntityBehaviour> _removeAction;
 
         private EntityBehaviourData _entityBehaviourData;
 
@@ -18,10 +22,11 @@ namespace Greatwanz.GameMaker
         
         public EntityBehaviourData EntityBehaviourData => _entityBehaviourData;
 
-        public void Setup(EntityBehaviourData behaviourData)
+        public void Setup(EntityBehaviourData behaviourData, Action<PrefabEntityBehaviour> removeAction)
         {
             _entityBehaviourData = behaviourData;
-            _image.sprite = behaviourData.Behaviour.thumbnail;
+            _removeAction = removeAction;
+            _behaviourImage.sprite = behaviourData.Behaviour.thumbnail;
             _title.text = behaviourData.Behaviour.optionName;
             
             foreach (var p in behaviourData.EntityParamValues)
@@ -41,6 +46,24 @@ namespace Greatwanz.GameMaker
             }
             
             _entityBehaviourData.SetParameters(parameters);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                _removeAction.Invoke(this);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _backgroundImage.color = Color.cyan;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _backgroundImage.color = Color.white;
         }
     }
 }
