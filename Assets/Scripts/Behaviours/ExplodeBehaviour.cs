@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Greatwanz.GameMaker
@@ -8,13 +9,18 @@ namespace Greatwanz.GameMaker
         [Header("Prefab")]
         [SerializeField] private ExplodeEffect _explodeEffect;
 
-        public override void Execute(Entity e)
+        public override void Execute(Entity e, Dictionary<string, object> paramValues)
         {
             var explodeEffect = Instantiate(_explodeEffect);
             explodeEffect.transform.position = e.transform.position;
-            explodeEffect.SetMesh(e.meshFilter.mesh);
+            explodeEffect.SetMesh(e.MeshFilter.mesh);
             explodeEffect.Activate();
             Destroy(e.gameObject);
+        }
+
+        protected override Dictionary<string, object> GetDefaultParameters()
+        {
+            return new Dictionary<string, object>();
         }
     }
 }

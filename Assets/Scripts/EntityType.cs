@@ -13,17 +13,16 @@ namespace Greatwanz.GameMaker
         public Mesh mesh => _mesh;
         public Entity entity => _entity;
 
-        private PrefabMetaData _prefabMetadata;
-
+        private PrefabEditorOption _prefabEditorOption;
+        
         public override void OnPointerDown(PointerEventData eventData)
         {
-            _prefabMetadata = null;
             if (eventData.pointerCurrentRaycast.isValid)
             {
-                var metadata = eventData.pointerCurrentRaycast.gameObject.GetComponent<PrefabMetaData>();
-                if (metadata)
+                var prefabEditorOption = eventData.pointerCurrentRaycast.gameObject.GetComponent<PrefabEditorOption>();
+                if (prefabEditorOption)
                 {
-                    _prefabMetadata = metadata;
+                    _prefabEditorOption = prefabEditorOption;
                 }
             }
 
@@ -33,9 +32,9 @@ namespace Greatwanz.GameMaker
         {
             Entity e = Instantiate(_entity);
             e.Setup(this);
-            if (_prefabMetadata != null)
+            if (_prefabEditorOption != null)
             {
-                e.AddBehaviour(_prefabMetadata.entityData.entityBehaviours);
+                e.AddBehaviour(_prefabEditorOption.GetBehaviourData().ToArray());
             }
 
             e.transform.position = position;

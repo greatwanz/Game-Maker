@@ -11,6 +11,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private NonDraggableScrollRect _entitiesScrollView;
         [Header("Prefab")]
         [SerializeField] private EditorOption _entityOptionPrefab;
+        [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
         [SerializeField] private EditorPanelButton _editorPanelButton;
         [Header("Definitions")]
         [SerializeField] private EditorPanelType[] _editorPanelTypes;
@@ -50,11 +51,9 @@ namespace Greatwanz.GameMaker
 
         public void SaveEntity(Entity entity)
         {
-            var entityData = entity.GetEntityData();
-            EditorOption option = Instantiate(_entityOptionPrefab, _entitiesScrollView.content);
-            var metadata = option.gameObject.AddComponent<PrefabMetaData>();
-            metadata.entityData = entityData;
-            option.Setup(entityData.entityType, _prefabPanelType);
+            PrefabEditorOption option = Instantiate(_prefabEditorOptionPrefab, _entitiesScrollView.content);
+            option.Setup(entity.EntityType, _prefabPanelType);
+            option.AddBehaviourData(entity.EntityBehaviourData);
             _editorOptions.Add(option);
             option.gameObject.SetActive(_editorPanelTypeVariable.value == _prefabPanelType);
         }

@@ -4,16 +4,33 @@ using UnityEngine;
 
 namespace Greatwanz.GameMaker
 {
-    [Serializable]
-    public struct EntityData
+    public struct EntityBehaviourData
     {
-        public EntityType entityType { get; }
-        public IEnumerable<EntityBehaviour> entityBehaviours { get; }
+        public EntityBehaviour Behaviour;
+        public Dictionary<string, object> EntityParamValues;
 
-        public EntityData(EntityType type, List<EntityBehaviour> behaviours)
+        public EntityBehaviourData(EntityBehaviour behaviour, Dictionary<string, object> paramValues)
         {
-            entityType = type;
-            entityBehaviours = behaviours;
+            Behaviour = behaviour;
+            EntityParamValues = new Dictionary<string, object>();
+
+            if (paramValues != null)
+            {
+                foreach (var p in paramValues)
+                {
+                    EntityParamValues.Add(p.Key, p.Value);
+                }
+            }
+        }
+
+        public void Execute(Entity e, Dictionary<string, object> paramValues)
+        {
+            Behaviour.Execute(e, paramValues);
+        }
+
+        public void SetParameters(Dictionary<string, object> paramValues)
+        {
+            EntityParamValues = paramValues;
         }
     }
 
@@ -24,40 +41,28 @@ namespace Greatwanz.GameMaker
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _saveEntityEvent;
 
-        public MeshFilter meshFilter => _meshFilter;
-
-        private readonly List<EntityBehaviour> _entityBehaviours = new List<EntityBehaviour>();
-
         private bool _canTrigger;
 
         private EntityType _entityType;
+        
+        private readonly List<EntityBehaviourData> _entityBehaviourData = new List<EntityBehaviourData>();
+        
+        public MeshFilter MeshFilter => _meshFilter;
         public EntityType EntityType => _entityType;
+        public List<EntityBehaviourData> EntityBehaviourData => _entityBehaviourData;
 
         public void Setup(EntityType entityType)
         {
             _entityType = entityType;
-            meshFilter.mesh = entityType.mesh;
+            MeshFilter.mesh = entityType.mesh;
         }
 
-        public void AddBehaviour(EntityBehaviour behaviour)
-        {
-            if (!_entityBehaviours.Contains(behaviour))
-            {
-                _entityBehaviours.Add(behaviour);
-            }
-        }
-
-        public void AddBehaviour(IEnumerable<EntityBehaviour> behaviours)
+        public void AddBehaviour(params EntityBehaviourData[] behaviours)
         {
             foreach (var b in behaviours)
             {
-                AddBehaviour(b);
+                _entityBehaviourData.Add(b);
             }
-        }
-
-        public void RemoveBehaviour(EntityBehaviour behaviour)
-        {
-            _entityBehaviours.Remove(behaviour);
         }
 
         public void OnMouseOver()
@@ -84,17 +89,12 @@ namespace Greatwanz.GameMaker
             }
         }
 
-        public void ExecuteBehaviours()
+        private void ExecuteBehaviours()
         {
-            foreach (var behaviour in _entityBehaviours)
+            foreach (var behaviourData in _entityBehaviourData)
             {
-                behaviour.Execute(this);
+                behaviourData.Execute(this, behaviourData.EntityParamValues);
             }
-        }
-
-        public EntityData GetEntityData()
-        {
-            return new EntityData(EntityType, _entityBehaviours);
         }
 
         public void OnPlaymodeToggle(bool isPlaying)

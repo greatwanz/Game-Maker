@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,7 +6,7 @@ namespace Greatwanz.GameMaker
 {
     public abstract class EntityBehaviour : EditorOptionType
     {
-        public abstract void Execute(Entity e);
+        public abstract void Execute(Entity e, Dictionary<string, object> paramValues);
 
         public override void OnPointerDown(PointerEventData eventData)
         {
@@ -27,9 +28,11 @@ namespace Greatwanz.GameMaker
                 Entity entity = hit.transform.GetComponent<Entity>();
                 if (entity)
                 {
-                    entity.AddBehaviour(this);
+                    entity.AddBehaviour(new EntityBehaviourData(this, GetDefaultParameters()));
                 }
             }
         }
+
+        protected abstract Dictionary<string, object> GetDefaultParameters();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Greatwanz.GameMaker
@@ -10,9 +11,17 @@ namespace Greatwanz.GameMaker
         [Header("Game Events")]
         [SerializeField] private IntGameEvent _gainPointsEvent;
 
-        public override void Execute(Entity e)
+        public override void Execute(Entity e, Dictionary<string, object> paramValues)
         {
-            _gainPointsEvent.Raise(_pointsToGain);
+            _gainPointsEvent.Raise((int) paramValues[nameof(_pointsToGain)]);
+        }
+
+        protected override Dictionary<string, object> GetDefaultParameters()
+        {
+            return new Dictionary<string, object>()
+            {
+                {nameof(_pointsToGain), _pointsToGain}
+            };
         }
     }
 }

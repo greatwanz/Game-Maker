@@ -621,7 +621,6 @@ GameObject:
   - component: {fileID: 448012478}
   - component: {fileID: 448012480}
   - component: {fileID: 448012482}
-  - component: {fileID: 448012481}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -729,6 +728,7 @@ MonoBehaviour:
   _buttonRoot: {fileID: 1717041993}
   _entitiesScrollView: {fileID: 1795383838}
   _entityOptionPrefab: {fileID: -151912457838142913, guid: f5fc40229913cdb4ab5a9f9bb11c265c, type: 3}
+  _prefabEditorOptionPrefab: {fileID: 4518055625117575449, guid: 9bf7923279e243841b1854733ec190f9, type: 3}
   _editorPanelButton: {fileID: 7838596008741584406, guid: 684634fff63525f4db024a4274aa6d4a, type: 3}
   _editorPanelTypes:
   - {fileID: 11400000, guid: 8932cc32e4cc905479e0f3958bdbe0a6, type: 2}
@@ -799,34 +799,6 @@ MonoBehaviour:
       - m_Target: {fileID: 448012477}
         m_TargetAssemblyTypeName: Greatwanz.GameMaker.EntityEditor, Assembly-CSharp
         m_MethodName: SaveEntity
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &448012481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448012472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23f5598593934248ab5cee009def206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: b449e13b41cad314f85adfbe6e89919d, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 448012479}
-        m_TargetAssemblyTypeName: Greatwanz.GameMaker.EntityMover, Assembly-CSharp
-        m_MethodName: OnPlaymodeToggle
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1174,7 +1146,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
