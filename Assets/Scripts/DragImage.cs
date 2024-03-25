@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
@@ -29,7 +27,7 @@ namespace Greatwanz.GameMaker
                 gameObject.SetActive(false);
                 _dragEntity.gameObject.SetActive(false);
 
-                if (_canInstantiate && !EventSystem.current.IsPointerOverGameObject())
+                if (_canInstantiate && !Utility.IsPointerOverUIElement())
                 {
                     _editorOption.OnDrop(_dragEntity.transform.position);
                 }
@@ -47,7 +45,7 @@ namespace Greatwanz.GameMaker
 
         public void EnableDragImage(EditorOptionType option)
         {
-            _canInstantiate = EventSystem.current.IsPointerOverGameObject();
+            _canInstantiate = Utility.IsPointerOverUIElement();
 
             if (!_dragEntity)
             {
@@ -70,7 +68,7 @@ namespace Greatwanz.GameMaker
         {
             if (_editorOption.HasMesh())
             {
-                if (EventSystem.current.IsPointerOverGameObject())
+                if (Utility.IsPointerOverUIElement())
                 {
                     _dragEntity.gameObject.SetActive(false);
                     _dragImage.enabled = true;

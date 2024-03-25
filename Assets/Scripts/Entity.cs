@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Greatwanz.GameMaker
 {
@@ -34,12 +34,16 @@ namespace Greatwanz.GameMaker
         }
     }
 
-    public class Entity : MonoBehaviour
+    public class Entity : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [Header("Reference")]
         [SerializeField] private MeshFilter _meshFilter;
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _saveEntityEvent;
+        [SerializeField] private EditorOptionGameEvent _dragEditorOptionEvent;
+        [Header("Data")]
+        [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
+        [SerializeField] private EditorPanelType _prefabEditorPanelType;
 
         private bool _canTrigger;
 
@@ -64,28 +68,26 @@ namespace Greatwanz.GameMaker
                 _entityBehaviourData.Add(b);
             }
         }
-
-        public void OnMouseOver()
+        
+        public void OnPointerDown(PointerEventData eventData)
         {
-            if (_canTrigger)
+            if (_canTrigger && eventData.button == PointerEventData.InputButton.Left)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    ExecuteBehaviours();
-                }
+                ExecuteBehaviours();
             }
-            else
-            {
-                if (Input.GetMouseButton(0)) return;
+        }
 
-                if (Input.GetMouseButtonDown(1))
-                {
-                    Destroy(gameObject);
-                }
-                else if (Input.GetMouseButtonDown(2))
-                {
-                    _saveEntityEvent.Raise(this);
-                }
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left) return;
+
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                Destroy(gameObject);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+            {
+                _saveEntityEvent.Raise(this);
             }
         }
 
@@ -100,6 +102,42 @@ namespace Greatwanz.GameMaker
         public void OnPlaymodeToggle(bool isPlaying)
         {
             _canTrigger = isPlaying;
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (!_canTrigger && eventData.button == PointerEventData.InputButton.Left)
+            {
+                _dragEditorOptionEvent.Raise(_entityType);
+                _meshFilter.gameObject.SetActive(false);
+            }
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!_canTrigger && eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (!Utility.IsPointerOverUIElement())
+                {
+                    var curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
+                    transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
+                    _meshFilter.gameObject.SetActive(true);
+                }
+                else
+                {
+                    if (_editorPanelTypeVariable.value == _prefabEditorPanelType)
+                    {
+                        _saveEntityEvent.Raise(this);
+                    }
+
+                    Destroy(gameObject);
+                }
+            }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            
         }
     }
 }
