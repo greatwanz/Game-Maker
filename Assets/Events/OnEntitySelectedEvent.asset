@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1c8c13a5d6022c4e9ac4f978ffcb115, type: 3}
-  m_Name: ActivePanelType
+  m_Script: {fileID: 11500000, guid: 8f499d73e58e71d428907c997432e9dc, type: 3}
+  m_Name: OnEntitySelectedEvent
   m_EditorClassIdentifier: 
-  _value: {fileID: 0}

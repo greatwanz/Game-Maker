@@ -6,7 +6,7 @@ namespace Greatwanz.GameMaker
     {
         [System.NonSerialized] protected T _value;
 
-        public T value
+        public T Value
         {
             get { return _value; }
             protected set
@@ -17,13 +17,13 @@ namespace Greatwanz.GameMaker
 
         public void Set(T v)
         {
-            T prev = value;
-            value = v;
+            T prev = Value;
+            Value = v;
         }
 
         public void Set(Variable<T> v)
         {
-            Set(v.value);
+            Set(v.Value);
         }
     }
 }

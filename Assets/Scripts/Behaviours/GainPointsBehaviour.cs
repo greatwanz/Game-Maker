@@ -9,11 +9,11 @@ namespace Greatwanz.GameMaker
         [Header("Definition")]
         [SerializeField] private int _pointsToGain;
         [Header("Game Events")]
-        [SerializeField] private IntGameEvent _gainPointsEvent;
+        [SerializeField] private IntGameEvent _onGainPointsEvent;
 
         public override void Execute(Entity e, Dictionary<string, object> paramValues)
         {
-            _gainPointsEvent.Raise((int) paramValues[nameof(_pointsToGain)]);
+            _onGainPointsEvent.Raise((int) paramValues[nameof(_pointsToGain)]);
         }
 
         protected override Dictionary<string, object> GetDefaultParameters()

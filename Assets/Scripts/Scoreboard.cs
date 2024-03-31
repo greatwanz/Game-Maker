@@ -13,7 +13,7 @@ namespace Greatwanz.GameMaker
         public void UpdateScore(int scoreToAdd)
         {
             _score.Add(scoreToAdd);
-            _scoreText.text = $"Score: {_score.value}";
+            _scoreText.text = $"Score: {_score.Value}";
         }
     }
 }

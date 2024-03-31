@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c946866115d90b4cabff73e71ca3b64, type: 3}
-  m_Name: SaveEntityEvent
+  m_Script: {fileID: 11500000, guid: d47c3920f9b95754db09d962fc1cfe6b, type: 3}
+  m_Name: OnGainPointsEvent
   m_EditorClassIdentifier: 

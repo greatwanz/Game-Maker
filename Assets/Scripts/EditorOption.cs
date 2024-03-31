@@ -1,42 +1,55 @@
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
 {
-    public class EditorOption : MonoBehaviour
+    public class EditorOption : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Reference")]
-        [SerializeField] private Image _optionThumbnail;
-        [SerializeField] private Text _optionName;
+        [SerializeField] protected Image _background;
+        [SerializeField] protected Image _optionThumbnail;
+        [SerializeField] protected Text _optionName;
         [Header("Game Event")]
-        [SerializeField] private PointerDownHandler _pointerDownHandler;
-        [SerializeField] private EditorOptionGameEvent _onDragEditorOption;
+        [SerializeField] protected EditorOptionGameEvent _onDragEditorOption;
+        [SerializeField] protected BoolGameEvent _onToggleEditorEvent;
 
-        private EditorOptionType _editorOptionType;
+        protected EditorOptionType _editorOptionType;
 
         private EditorPanelType _panelType;
         public EditorPanelType PanelType => _panelType;
-
-        private void OnDestroy()
-        {
-            _pointerDownHandler.OnPointerDownEvent.RemoveAllListeners();
-        }
 
         public void Setup(EditorOptionType optionType, EditorPanelType editorPanelType)
         {
             _optionThumbnail.sprite = optionType.thumbnail;
             _optionName.text = optionType.optionName;
-            _pointerDownHandler.OnPointerDownEvent.AddListener(OnPointerDown);
             name = optionType.optionName;
             _panelType = editorPanelType;
             _editorOptionType = optionType;
         }
 
-        private void OnPointerDown(UnityEngine.EventSystems.PointerEventData data)
+        public virtual void OnPointerDown(PointerEventData data)
         {
-            _editorOptionType.OnPointerDown(data);
-            _onDragEditorOption.Raise(_editorOptionType);
+            if (data.button == PointerEventData.InputButton.Left)
+            {
+                _background.color = Color.white;
+                _onToggleEditorEvent.Raise(false);
+                _onDragEditorOption.Raise(_editorOptionType);
+            }
+        }
+
+        public virtual void OnPointerUp(PointerEventData eventData)
+        {
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _background.color = Color.cyan;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _background.color = Color.white;
         }
     }
 }

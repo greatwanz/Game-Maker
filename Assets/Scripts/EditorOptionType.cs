@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Greatwanz.GameMaker
 {
@@ -14,10 +12,6 @@ namespace Greatwanz.GameMaker
 
         public Sprite thumbnail => _thumbnail;
 
-        public abstract void OnPointerDown(PointerEventData eventData);
-
-        public abstract void OnDrop(Vector3 position);
-
-        public abstract bool HasMesh();
+        public abstract Entity OnDrop(Vector3 position);
     }
 }

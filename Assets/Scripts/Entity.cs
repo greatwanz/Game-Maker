@@ -34,18 +34,24 @@ namespace Greatwanz.GameMaker
         }
     }
 
-    public class Entity : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class Entity : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, 
+        IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
     {
+        [SerializeField] private bool _isInteractable = true;
         [Header("Reference")]
         [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private MeshRenderer _meshRenderer;
         [Header("Game Event")]
-        [SerializeField] private EntityGameEvent _saveEntityEvent;
+        [SerializeField] private EntityGameEvent _onSaveEntityEvent;
         [SerializeField] private EditorOptionGameEvent _dragEditorOptionEvent;
-        [Header("Data")]
-        [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
-        [SerializeField] private EditorPanelType _prefabEditorPanelType;
+        [SerializeField] private BoolGameEvent _onToggleEditorEvent;
 
+        private bool _isDragging;
         private bool _canTrigger;
+        private bool _isSelected;
+
+        private Vector3 _preDragPosition;
+        private Vector3 _curScreenPoint;
 
         private EntityType _entityType;
         
@@ -69,28 +75,6 @@ namespace Greatwanz.GameMaker
             }
         }
         
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (_canTrigger && eventData.button == PointerEventData.InputButton.Left)
-            {
-                ExecuteBehaviours();
-            }
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Left) return;
-
-            if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                Destroy(gameObject);
-            }
-            else if (eventData.button == PointerEventData.InputButton.Middle)
-            {
-                _saveEntityEvent.Raise(this);
-            }
-        }
-
         private void ExecuteBehaviours()
         {
             foreach (var behaviourData in _entityBehaviourData)
@@ -103,41 +87,107 @@ namespace Greatwanz.GameMaker
         {
             _canTrigger = isPlaying;
         }
+        
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (_canTrigger && eventData.button == PointerEventData.InputButton.Left)
+            {
+                ExecuteBehaviours();
+            }
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (_canTrigger) return;
+
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (!_isSelected && eventData.hovered.Contains(gameObject))
+                {
+                    EventSystem.current.SetSelectedGameObject(gameObject);
+                }
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                if (_isDragging)
+                {
+                    _isInteractable = false;
+                    transform.position = _preDragPosition;
+                    _meshFilter.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                _onSaveEntityEvent.Raise(this);
+            }
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!_isSelected) return;
             if (!_canTrigger && eventData.button == PointerEventData.InputButton.Left)
             {
-                _dragEditorOptionEvent.Raise(_entityType);
-                _meshFilter.gameObject.SetActive(false);
+                _preDragPosition = transform.position;
+                _isDragging = true;
+                _onToggleEditorEvent.Raise(false);
             }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (!_isSelected) return;
+            
             if (!_canTrigger && eventData.button == PointerEventData.InputButton.Left)
             {
-                if (!Utility.IsPointerOverUIElement())
-                {
-                    var curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
-                    transform.position = Camera.main.ScreenToWorldPoint(curScreenPoint);
-                    _meshFilter.gameObject.SetActive(true);
-                }
-                else
-                {
-                    if (_editorPanelTypeVariable.value == _prefabEditorPanelType)
-                    {
-                        _saveEntityEvent.Raise(this);
-                    }
-
-                    Destroy(gameObject);
-                }
+                _isInteractable = true;
+                _isDragging = false;
+                Input.ResetInputAxes();
+                _onToggleEditorEvent.Raise(true);
             }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!_isInteractable || !_isSelected || !_isDragging) return;
             
+            if (Utility.IsPointerOverUIElement())
+            {
+                _dragEditorOptionEvent.Raise(_entityType);
+                _meshFilter.gameObject.SetActive(false);
+            }
+            else
+            {
+                _curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
+                transform.position = Camera.main.ScreenToWorldPoint(_curScreenPoint);
+                _meshFilter.gameObject.SetActive(true);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!_isInteractable || _canTrigger) return;
+            _meshRenderer.material.SetColor("_Color", Color.cyan);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (_isSelected || !_isInteractable || _canTrigger) return;
+            _meshRenderer.material.SetColor("_Color", Color.white);
+        }
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            _isSelected = true;
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            _isSelected = false;
+            _meshRenderer.material.SetColor("_Color", Color.white);
         }
     }
 }

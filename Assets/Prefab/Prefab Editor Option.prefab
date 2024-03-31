@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: 2785694352889150817}
   - component: {fileID: 5725857752085687206}
   - component: {fileID: 4518055625117575449}
-  - component: {fileID: 3962691580574216988}
   m_Layer: 5
   m_Name: Prefab Editor Option
   m_TagString: Untagged
@@ -271,27 +270,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9c7cf60cf03f447bb7ab867cfb7945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _background: {fileID: 2785694352889150817}
   _optionThumbnail: {fileID: 5112329441618237850}
   _optionName: {fileID: 6700796793213699137}
-  _pointerDownHandler: {fileID: 3962691580574216988}
   _onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
+  _onToggleEditorEvent: {fileID: 11400000, guid: 778d5e7b2eb32364aa0495bd9622a82c, type: 2}
   prefabEntityBehaviourPrefab: {fileID: 6220208711601543913, guid: daecc71ea6d3fbe428cd8c9362681ba6, type: 3}
   _entityBehaviourRootTransform: {fileID: 6158564478228709302}
---- !u!114 &3962691580574216988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4651560196422820316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 067171da2ae510d44a61bbf2b7896b4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnPointerDownEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  _currentBehaviourDataSet: {fileID: 11400000, guid: f56df60a19a5b424da362f98929eb211, type: 2}
+  _editorOptions: {fileID: 11400000, guid: f059ddbcfcabe1d449e9d8adc2131849, type: 2}
 --- !u!1 &4933088739079731757
 GameObject:
   m_ObjectHideFlags: 0

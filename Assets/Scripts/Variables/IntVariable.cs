@@ -7,19 +7,19 @@ namespace Greatwanz.GameMaker
     {
         public void Add(int v)
         {
-            int prev = value;
+            int prev = Value;
             prev += v;
             Set(prev);
         }
 
         public void Add(IntVariable v)
         {
-            int prev = value;
+            int prev = Value;
 
             if (v is IntVariable)
             {
                 IntVariable i = (IntVariable)v;
-                prev += i.value;
+                prev += i.Value;
                 Set(prev);
             }
         }
