@@ -39,7 +39,7 @@ namespace Greatwanz.GameMaker
 
         public void OnDragEditorOption(EditorOptionType option)
         {
-            if (option is EntityBehaviour e)
+            if (option is BehaviourOptionType e)
             {
                 gameObject.SetActive(true);
                 _dragImage.sprite = e.thumbnail;

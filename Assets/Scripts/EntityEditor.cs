@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,19 +16,26 @@ namespace Greatwanz.GameMaker
         [Header("Prefab")]
         [SerializeField] private EditorOption _entityOptionPrefab;
         [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
-        [SerializeField] private EditorPanelButton _editorPanelButton;
+        [SerializeField] private EditorPanelButton _editorPanelButtonPrefab;
+        [SerializeField] private BehaviourOption _behaviourOptionPrefab;
         [Header("Definitions")]
         [SerializeField] private EditorPanelType[] _editorPanelTypes;
         [Header("Data")]
         [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
         [SerializeField] private EditorPanelType _prefabPanelType;
-        [SerializeField] private EditorOptionSet _editorOptions;
+        [SerializeField] private EditorPanelType _inspectorPanelType;
+        [SerializeField] private EditorOptionSet _editorOptionSet;
 
         private Vector3 _entitiesScrollViewVisible;
         private Vector3 _entitiesScrollViewHidden;
 
+        private List<EditorPanelButton> _editorPanelButtons;
+
+        private EditorPanelType _panelTypeBeforeInspector;
+
         void Start()
         {
+            _editorPanelButtons = new List<EditorPanelButton>();
             _entitiesScrollViewVisible = _entitiesScrollView.transform.position;
             var width = _entitiesScrollView.GetComponent<RectTransform>().rect.width;
             _entitiesScrollViewHidden = new Vector3(_entitiesScrollViewVisible.x + width, _entitiesScrollViewVisible.y, _entitiesScrollViewVisible.z);
@@ -38,12 +46,14 @@ namespace Greatwanz.GameMaker
                 {
                     EditorOption e = Instantiate(_entityOptionPrefab, _entitiesScrollView.content);
                     e.Setup(option, panelType);
-                    _editorOptions.Add(e);
+                    _editorOptionSet.Add(e);
                 }
 
-                EditorPanelButton button = Instantiate(_editorPanelButton, _buttonRoot);
-                button.Setup(panelType.PanelName);
+                EditorPanelButton button = Instantiate(_editorPanelButtonPrefab, _buttonRoot);
+                button.Setup(panelType.PanelName, panelType);
                 button.Bind(() => SwitchPanelToType(panelType));
+                _editorPanelButtons.Add(button);
+                if(!panelType.IsDefaultEnabled) button.gameObject.SetActive(false);
             }
 
             SwitchPanelToType(_editorPanelTypes[0]);
@@ -67,18 +77,18 @@ namespace Greatwanz.GameMaker
         void SwitchPanelToType(EditorPanelType panelType)
         {
             _editorPanelTypeVariable.Set(panelType);
-            foreach (var e in _editorOptions.Items)
+            foreach (var e in _editorOptionSet.Items)
             {
                 e.gameObject.SetActive(panelType == e.PanelType);
             }
         }
 
-        public void SaveEntity(Entity entity)
+        public void OnSaveEntity(Entity entity)
         {
             PrefabEditorOption option = Instantiate(_prefabEditorOptionPrefab, _entitiesScrollView.content);
-            option.Setup(entity.EntityType, _prefabPanelType);
+            option.Setup(entity.EntityOptionType, _prefabPanelType);
             option.AddBehaviourData(entity.EntityBehaviourData);
-            _editorOptions.Add(option);
+            _editorOptionSet.Add(option);
             option.gameObject.SetActive(_editorPanelTypeVariable.Value == _prefabPanelType);
         }
 
@@ -106,6 +116,42 @@ namespace Greatwanz.GameMaker
             _modeToggle.gameObject.SetActive(isVisible);
 
             _panelVisibilityIndicator.text = isVisible ? ">" : "<";
+        }
+
+        public void OnEntitySelected(Entity entity)
+        {
+            if (entity)
+            {
+                _panelTypeBeforeInspector = _editorPanelTypeVariable.Value;
+                SwitchPanelToType(_inspectorPanelType);
+                foreach (var e in _editorPanelButtons)
+                {
+                    e.gameObject.SetActive(e.PanelType == _inspectorPanelType);
+                }
+
+                foreach (var e in entity.EntityBehaviourData)
+                {
+                    BehaviourOption option = Instantiate(_behaviourOptionPrefab,  _entitiesScrollView.content);
+                    option.Setup(e, option =>
+                    {
+                        entity.EntityBehaviourData.Remove(e);
+                        Destroy(option.gameObject);
+                    });
+                }
+            }
+            else
+            {
+                foreach (Transform t in _entitiesScrollView.content)
+                {
+                    if(t.gameObject.activeSelf) Destroy(t.gameObject);
+                }
+                
+                foreach (var e in _editorPanelButtons)
+                {
+                    e.gameObject.SetActive(e.PanelType != _inspectorPanelType);
+                }
+                SwitchPanelToType(_panelTypeBeforeInspector);
+            }
         }
     }
 }

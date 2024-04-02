@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 448012482}
   - component: {fileID: 448012478}
   - component: {fileID: 448012479}
+  - component: {fileID: 448012481}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -738,14 +739,17 @@ MonoBehaviour:
   _panelVisibilityIndicator: {fileID: 1602664225}
   _entityOptionPrefab: {fileID: -151912457838142913, guid: f5fc40229913cdb4ab5a9f9bb11c265c, type: 3}
   _prefabEditorOptionPrefab: {fileID: 4518055625117575449, guid: 9bf7923279e243841b1854733ec190f9, type: 3}
-  _editorPanelButton: {fileID: 7838596008741584406, guid: 684634fff63525f4db024a4274aa6d4a, type: 3}
+  _editorPanelButtonPrefab: {fileID: 7838596008741584406, guid: 684634fff63525f4db024a4274aa6d4a, type: 3}
+  _behaviourOptionPrefab: {fileID: 6220208711601543913, guid: daecc71ea6d3fbe428cd8c9362681ba6, type: 3}
   _editorPanelTypes:
   - {fileID: 11400000, guid: 8932cc32e4cc905479e0f3958bdbe0a6, type: 2}
   - {fileID: 11400000, guid: 3340f7d205f3092489beff287f9a0791, type: 2}
   - {fileID: 11400000, guid: f7da068b8a4d812499afe05cf97bacc4, type: 2}
+  - {fileID: 11400000, guid: 7aa5069599eaff24ca974f61ea79a246, type: 2}
   _editorPanelTypeVariable: {fileID: 11400000, guid: 8e3d27755e5b90148954fe68de925978, type: 2}
   _prefabPanelType: {fileID: 11400000, guid: f7da068b8a4d812499afe05cf97bacc4, type: 2}
-  _editorOptions: {fileID: 11400000, guid: f059ddbcfcabe1d449e9d8adc2131849, type: 2}
+  _inspectorPanelType: {fileID: 11400000, guid: 7aa5069599eaff24ca974f61ea79a246, type: 2}
+  _editorOptionSet: {fileID: 11400000, guid: f059ddbcfcabe1d449e9d8adc2131849, type: 2}
 --- !u!114 &448012478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,7 +836,35 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 448012477}
         m_TargetAssemblyTypeName: Greatwanz.GameMaker.EntityEditor, Assembly-CSharp
-        m_MethodName: SaveEntity
+        m_MethodName: OnSaveEntity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &448012481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448012472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8824fc7285aa7f64ebb72116c22db9b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: cf585462af3e4a245bae04c07817452a, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 448012477}
+        m_TargetAssemblyTypeName: Greatwanz.GameMaker.EntityEditor, Assembly-CSharp
+        m_MethodName: OnEntitySelected
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

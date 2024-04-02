@@ -10,9 +10,13 @@ namespace Greatwanz.GameMaker
         [SerializeField] private Text _buttonText;
         [SerializeField] private Button _button;
 
-        public void Setup(string text)
+        private EditorPanelType _panelType;
+        public EditorPanelType PanelType => _panelType;
+
+        public void Setup(string text, EditorPanelType panelType)
         {
             _buttonText.text = text;
+            _panelType = panelType;
         }
 
         private void OnDestroy()

@@ -7,7 +7,7 @@ namespace Greatwanz.GameMaker
     public class PrefabEditorOption : EditorOption
     {
         [Header("Prefab")]
-        [SerializeField] private PrefabEntityBehaviour prefabEntityBehaviourPrefab;
+        [SerializeField] private BehaviourOption behaviourOptionPrefab;
         [Header("Reference")]
         [SerializeField] private Transform _entityBehaviourRootTransform;
         [Header("Data")]
@@ -16,22 +16,22 @@ namespace Greatwanz.GameMaker
         [SerializeField] private EditorOptionSet _editorOptions;
 
 
-        private readonly List<PrefabEntityBehaviour> _prefabEntityBehaviours = new List<PrefabEntityBehaviour>();
+        private readonly List<BehaviourOption> _prefabEntityBehaviours = new List<BehaviourOption>();
 
         public void AddBehaviourData(List<EntityBehaviourData> data)
         {
             foreach (var e in data)
             {
-                var prefabEntityBehaviour = Instantiate(prefabEntityBehaviourPrefab, _entityBehaviourRootTransform);
+                var prefabEntityBehaviour = Instantiate(behaviourOptionPrefab, _entityBehaviourRootTransform);
                 prefabEntityBehaviour.Setup(e, RemoveEntityBehaviour);
                 _prefabEntityBehaviours.Add(prefabEntityBehaviour);
             } 
         }
 
-        private void RemoveEntityBehaviour(PrefabEntityBehaviour behaviour)
+        private void RemoveEntityBehaviour(BehaviourOption behaviourOption)
         {
-            _prefabEntityBehaviours.Remove(behaviour);
-            Destroy(behaviour.gameObject);
+            _prefabEntityBehaviours.Remove(behaviourOption);
+            Destroy(behaviourOption.gameObject);
         }
 
         public List<EntityBehaviourData> GetBehaviourData()

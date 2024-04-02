@@ -6,12 +6,12 @@ namespace Greatwanz.GameMaker
 {
     public struct EntityBehaviourData
     {
-        public EntityBehaviour Behaviour;
+        public BehaviourOptionType BehaviourOptionType;
         public Dictionary<string, object> EntityParamValues;
 
-        public EntityBehaviourData(EntityBehaviour behaviour, Dictionary<string, object> paramValues)
+        public EntityBehaviourData(BehaviourOptionType behaviourOptionType, Dictionary<string, object> paramValues)
         {
-            Behaviour = behaviour;
+            BehaviourOptionType = behaviourOptionType;
             EntityParamValues = new Dictionary<string, object>();
 
             if (paramValues != null)
@@ -25,7 +25,7 @@ namespace Greatwanz.GameMaker
 
         public void Execute(Entity e, Dictionary<string, object> paramValues)
         {
-            Behaviour.Execute(e, paramValues);
+            BehaviourOptionType.Execute(e, paramValues);
         }
 
         public void SetParameters(Dictionary<string, object> paramValues)
@@ -43,6 +43,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private MeshRenderer _meshRenderer;
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _onSaveEntityEvent;
+        [SerializeField] private EntityGameEvent _onEntitySelectedEvent;
         [SerializeField] private EditorOptionGameEvent _dragEditorOptionEvent;
         [SerializeField] private BoolGameEvent _onToggleEditorEvent;
 
@@ -53,18 +54,18 @@ namespace Greatwanz.GameMaker
         private Vector3 _preDragPosition;
         private Vector3 _curScreenPoint;
 
-        private EntityType _entityType;
+        private EntityOptionType _entityOptionType;
         
         private readonly List<EntityBehaviourData> _entityBehaviourData = new List<EntityBehaviourData>();
         
         public MeshFilter MeshFilter => _meshFilter;
-        public EntityType EntityType => _entityType;
+        public EntityOptionType EntityOptionType => _entityOptionType;
         public List<EntityBehaviourData> EntityBehaviourData => _entityBehaviourData;
 
-        public void Setup(EntityType entityType)
+        public void Setup(EntityOptionType entityOptionType)
         {
-            _entityType = entityType;
-            MeshFilter.mesh = entityType.mesh;
+            _entityOptionType = entityOptionType;
+            MeshFilter.mesh = entityOptionType.mesh;
         }
 
         public void AddBehaviour(params EntityBehaviourData[] behaviours)
@@ -156,7 +157,7 @@ namespace Greatwanz.GameMaker
             
             if (Utility.IsPointerOverUIElement())
             {
-                _dragEditorOptionEvent.Raise(_entityType);
+                _dragEditorOptionEvent.Raise(_entityOptionType);
                 _meshFilter.gameObject.SetActive(false);
             }
             else
@@ -182,12 +183,14 @@ namespace Greatwanz.GameMaker
         public void OnSelect(BaseEventData eventData)
         {
             _isSelected = true;
+            _onEntitySelectedEvent.Raise(this);
         }
 
         public void OnDeselect(BaseEventData eventData)
         {
             _isSelected = false;
             _meshRenderer.material.SetColor("_Color", Color.white);
+            _onEntitySelectedEvent.Raise(null);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Greatwanz.GameMaker
 {
-    public abstract class EntityBehaviour : EditorOptionType
+    public abstract class BehaviourOptionType : EditorOptionType
     {
         public abstract void Execute(Entity e, Dictionary<string, object> paramValues);
 

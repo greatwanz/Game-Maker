@@ -133,6 +133,7 @@ MonoBehaviour:
   _onSaveEntityEvent: {fileID: 11400000, guid: 64d2b261f83a1194fbefb0227012f245, type: 2}
   _dragEditorOptionEvent: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
   _onToggleEditorEvent: {fileID: 11400000, guid: 778d5e7b2eb32364aa0495bd9622a82c, type: 2}
+  _onEntitySelectedEvent: {fileID: 11400000, guid: cf585462af3e4a245bae04c07817452a, type: 2}
 --- !u!114 &-7229713544036174185
 MonoBehaviour:
   m_ObjectHideFlags: 0

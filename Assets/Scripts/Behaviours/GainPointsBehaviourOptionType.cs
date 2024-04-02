@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Greatwanz.GameMaker
 {
     [CreateAssetMenu]
-    public class GainPointsBehaviour : EntityBehaviour
+    public class GainPointsBehaviourOptionType : BehaviourOptionType
     {
         [Header("Definition")]
         [SerializeField] private int _pointsToGain;

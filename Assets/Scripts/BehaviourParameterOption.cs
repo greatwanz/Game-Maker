@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Greatwanz.GameMaker
 {
-    public class PrefabEntityBehaviourParameter : MonoBehaviour
+    public class BehaviourParameterOption : MonoBehaviour
     {
         [Header("Reference")]
         [SerializeField] private UnityEngine.UI.Text _parameterName;

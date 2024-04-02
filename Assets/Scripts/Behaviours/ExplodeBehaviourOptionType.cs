@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Greatwanz.GameMaker
 {
     [CreateAssetMenu]
-    public class ExplodeBehaviour : EntityBehaviour
+    public class ExplodeBehaviourOptionType : BehaviourOptionType
     {
         [Header("Prefab")]
         [SerializeField] private ExplodeEffect _explodeEffect;

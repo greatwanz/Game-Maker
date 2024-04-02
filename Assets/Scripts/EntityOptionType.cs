@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Greatwanz.GameMaker
 {
     [CreateAssetMenu]
-    public class EntityType : EditorOptionType
+    public class EntityOptionType : EditorOptionType
     {
         [Header("Reference")]
         [SerializeField] private Mesh _mesh;

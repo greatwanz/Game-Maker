@@ -5,33 +5,33 @@ using UnityEngine.EventSystems;
 
 namespace Greatwanz.GameMaker
 {
-    public class PrefabEntityBehaviour : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+    public class BehaviourOption : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Prefab")]
-        [SerializeField] private PrefabEntityBehaviourParameter prefabEntityBehaviourParameter;
+        [SerializeField] private BehaviourParameterOption behaviourParameterOption;
         [Header("Reference")]
         [SerializeField] private UnityEngine.UI.Image _backgroundImage;
         [SerializeField] private UnityEngine.UI.Image _behaviourImage;
         [SerializeField] private UnityEngine.UI.Text _title;
 
-        private Action<PrefabEntityBehaviour> _removeAction;
+        private Action<BehaviourOption> _removeAction;
 
         private EntityBehaviourData _entityBehaviourData;
 
-        private List<PrefabEntityBehaviourParameter> _prefabEntityBehaviourParameters = new List<PrefabEntityBehaviourParameter>();
+        private List<BehaviourParameterOption> _prefabEntityBehaviourParameters = new List<BehaviourParameterOption>();
         
         public EntityBehaviourData EntityBehaviourData => _entityBehaviourData;
 
-        public void Setup(EntityBehaviourData behaviourData, Action<PrefabEntityBehaviour> removeAction)
+        public void Setup(EntityBehaviourData behaviourData, Action<BehaviourOption> removeAction)
         {
             _entityBehaviourData = behaviourData;
             _removeAction = removeAction;
-            _behaviourImage.sprite = behaviourData.Behaviour.thumbnail;
-            _title.text = behaviourData.Behaviour.optionName;
+            _behaviourImage.sprite = behaviourData.BehaviourOptionType.thumbnail;
+            _title.text = behaviourData.BehaviourOptionType.optionName;
             
             foreach (var p in behaviourData.EntityParamValues)
             {
-                var param = Instantiate(prefabEntityBehaviourParameter, transform);
+                var param = Instantiate(behaviourParameterOption, transform);
                 param.Setup(p.Key, p.Value);
                 _prefabEntityBehaviourParameters.Add(param);
             }

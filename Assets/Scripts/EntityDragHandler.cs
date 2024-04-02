@@ -11,7 +11,7 @@ namespace Greatwanz.GameMaker
         [Header("Game Event")]
         [SerializeField] private BoolGameEvent _onToggleEditorEvent;
 
-        private EntityType _editorOption;
+        private EntityOptionType _editorOption;
         private Camera _camera;
         
         private void Awake()
@@ -46,7 +46,7 @@ namespace Greatwanz.GameMaker
 
         public void OnDragEditorOption(EditorOptionType option)
         {
-            if (option is EntityType e)
+            if (option is EntityOptionType e)
             {
                 gameObject.SetActive(true);
                 _dragEntity.Setup(e);
