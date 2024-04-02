@@ -339,13 +339,6 @@ namespace UnityEngine.InputSystem.UI
                 eventData.pointerPressRaycast = eventData.pointerCurrentRaycast;
                 eventData.eligibleForClick = true;
 
-                var selectHandler = ExecuteEvents.GetEventHandler<ISelectHandler>(currentOverGo);
-
-                // If we have clicked something new, deselect the old thing and leave 'selection handling' up
-                // to the press event (except if there's none and we're told to not deselect in that case).
-                // if (selectHandler != eventSystem.currentSelectedGameObject && (selectHandler != null || m_DeselectOnBackgroundClick))
-                //     eventSystem.SetSelectedGameObject(null, eventData);
-
                 // Invoke OnPointerDown, if present.
                 var newPressed = ExecuteEvents.ExecuteHierarchy(currentOverGo, eventData, ExecuteEvents.pointerDownHandler);
 
