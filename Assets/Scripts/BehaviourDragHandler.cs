@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
@@ -14,26 +15,25 @@ namespace Greatwanz.GameMaker
 
         private void OnEnable()
         {
-            transform.position = Input.mousePosition;
+            transform.position = Mouse.current.position.ReadValue();
         }
 
         void Update()
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Mouse.current.leftButton.wasReleasedThisFrame)
             {
                 gameObject.SetActive(false);
                 _onToggleEditorEvent.Raise(true);
                 _editorOption.OnDrop(transform.position);
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 _onToggleEditorEvent.Raise(true);
                 gameObject.SetActive(false);
-                Input.ResetInputAxes();
             }
             else
             {
-                transform.position = Input.mousePosition;
+                transform.position = Mouse.current.position.ReadValue();
             }
         }
 

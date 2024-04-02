@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
@@ -61,8 +62,9 @@ namespace Greatwanz.GameMaker
 
         private void Update()
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Mouse.current.leftButton.wasReleasedThisFrame)
             {
+                if (Utility.IsPointerOverUIElement()) return;
                 var result = Utility.GetEventSystemRaycastResults();
 
                 foreach (var r in result)

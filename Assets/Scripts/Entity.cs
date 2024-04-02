@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Greatwanz.GameMaker
 {
@@ -146,7 +147,6 @@ namespace Greatwanz.GameMaker
             {
                 _isInteractable = true;
                 _isDragging = false;
-                Input.ResetInputAxes();
                 _onToggleEditorEvent.Raise(true);
             }
         }
@@ -162,7 +162,8 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                _curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
+                var mousePosition = Mouse.current.position.ReadValue();
+                _curScreenPoint = new Vector3(mousePosition.x, mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
                 transform.position = Camera.main.ScreenToWorldPoint(_curScreenPoint);
                 _meshFilter.gameObject.SetActive(true);
             }

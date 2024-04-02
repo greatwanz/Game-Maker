@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Greatwanz.GameMaker
 {
@@ -9,7 +10,8 @@ namespace Greatwanz.GameMaker
 
         public override Entity OnDrop(Vector3 position)
         {
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
+            var mousePosition = Mouse.current.position.ReadValue();
+            Vector3 curScreenPoint = new Vector3(mousePosition.x, mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(curScreenPoint);
             RaycastHit hit;
 
