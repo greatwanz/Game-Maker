@@ -29,6 +29,14 @@ namespace Greatwanz.GameMaker
             BehaviourOptionType.Execute(e, paramValues);
         }
 
+        public void SetParameter(string key, object value)
+        {
+            if (EntityParamValues.ContainsKey(key))
+            {
+                EntityParamValues[key] = value;
+            }
+        }
+
         public void SetParameters(Dictionary<string, object> paramValues)
         {
             EntityParamValues = paramValues;
@@ -42,6 +50,8 @@ namespace Greatwanz.GameMaker
         [Header("Reference")]
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
+        [Header("Data")]
+        [SerializeField] private EntityVariable _currentEntityVariable;
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _onSaveEntityEvent;
         [SerializeField] private EntityGameEvent _onEntitySelectedEvent;
@@ -55,17 +65,27 @@ namespace Greatwanz.GameMaker
         private Vector3 _preDragPosition;
         private Vector3 _curScreenPoint;
 
+        private string _entityName;
+
         private EntityOptionType _entityOptionType;
         
         private readonly List<EntityBehaviourData> _entityBehaviourData = new List<EntityBehaviourData>();
-        
+
+        public bool IsInteractable => _isInteractable;
         public MeshFilter MeshFilter => _meshFilter;
         public EntityOptionType EntityOptionType => _entityOptionType;
         public List<EntityBehaviourData> EntityBehaviourData => _entityBehaviourData;
 
+        public string EntityName
+        {
+            set => _entityName = value;
+            get => _entityName;
+        }
+
         public void Setup(EntityOptionType entityOptionType)
         {
             _entityOptionType = entityOptionType;
+            _entityName = entityOptionType.optionName;
             MeshFilter.mesh = entityOptionType.mesh;
         }
 
@@ -183,15 +203,27 @@ namespace Greatwanz.GameMaker
 
         public void OnSelect(BaseEventData eventData)
         {
+            if (_currentEntityVariable.Value != null)
+            {
+                _currentEntityVariable.Value.Deselect();
+            }
+            
             _isSelected = true;
+            _currentEntityVariable.Set(this);
             _onEntitySelectedEvent.Raise(this);
         }
 
         public void OnDeselect(BaseEventData eventData)
         {
+
+        }
+
+        public void Deselect()
+        {
             _isSelected = false;
             _meshRenderer.material.SetColor("_Color", Color.white);
-            _onEntitySelectedEvent.Raise(null);
+            _onEntitySelectedEvent.Raise(null); 
+            _currentEntityVariable.Set(null);
         }
     }
 }

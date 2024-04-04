@@ -747,6 +747,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f7da068b8a4d812499afe05cf97bacc4, type: 2}
   - {fileID: 11400000, guid: 7aa5069599eaff24ca974f61ea79a246, type: 2}
   _editorPanelTypeVariable: {fileID: 11400000, guid: 8e3d27755e5b90148954fe68de925978, type: 2}
+  _currentEntityVariable: {fileID: 11400000, guid: 4607ec8d0f08afd45bc608cdc12b095c, type: 2}
   _prefabPanelType: {fileID: 11400000, guid: f7da068b8a4d812499afe05cf97bacc4, type: 2}
   _inspectorPanelType: {fileID: 11400000, guid: 7aa5069599eaff24ca974f61ea79a246, type: 2}
   _editorOptionSet: {fileID: 11400000, guid: f059ddbcfcabe1d449e9d8adc2131849, type: 2}

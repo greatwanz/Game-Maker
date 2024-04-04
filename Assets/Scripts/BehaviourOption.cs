@@ -32,7 +32,7 @@ namespace Greatwanz.GameMaker
             foreach (var p in behaviourData.EntityParamValues)
             {
                 var param = Instantiate(behaviourParameterOption, transform);
-                param.Setup(p.Key, p.Value);
+                param.Setup(this, p.Key, p.Value);
                 _prefabEntityBehaviourParameters.Add(param);
             }
         }

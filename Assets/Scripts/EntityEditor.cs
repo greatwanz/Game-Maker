@@ -23,6 +23,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private EditorPanelType[] _editorPanelTypes;
         [Header("Data")]
         [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
+        [SerializeField] private EntityVariable _currentEntityVariable;
         [SerializeField] private EditorPanelType _prefabPanelType;
         [SerializeField] private EditorPanelType _inspectorPanelType;
         [SerializeField] private EditorOptionSet _editorOptionSet;
@@ -46,12 +47,12 @@ namespace Greatwanz.GameMaker
                 foreach (var option in panelType.EntityOptionTypes)
                 {
                     EditorOption e = Instantiate(_entityOptionPrefab, _entitiesScrollView.content);
-                    e.Setup(option, panelType);
+                    e.Setup(option.optionName, option, panelType);
                     _editorOptionSet.Add(e);
                 }
 
                 EditorPanelButton button = Instantiate(_editorPanelButtonPrefab, _buttonRoot);
-                button.Setup(panelType.PanelName, panelType);
+                button.Setup(panelType);
                 button.Bind(() => SwitchPanelToType(panelType));
                 _editorPanelButtons.Add(button);
                 if(!panelType.IsDefaultEnabled) button.gameObject.SetActive(false);
@@ -62,17 +63,17 @@ namespace Greatwanz.GameMaker
 
         private void Update()
         {
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            if (Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame)
             {
                 if (Utility.IsPointerOverUIElement()) return;
                 var result = Utility.GetEventSystemRaycastResults();
-
                 foreach (var r in result)
                 {
-                    if (r.gameObject.GetComponent<ISelectHandler>() != null) return;
+                    var e = r.gameObject.GetComponent<Entity>();
+                    if (e != null) return;
                 }
                 
-                EventSystem.current.SetSelectedGameObject(null);
+                DeselectCurrentEntity();
             }
         }
 
@@ -88,7 +89,7 @@ namespace Greatwanz.GameMaker
         public void OnSaveEntity(Entity entity)
         {
             PrefabEditorOption option = Instantiate(_prefabEditorOptionPrefab, _entitiesScrollView.content);
-            option.Setup(entity.EntityOptionType, _prefabPanelType);
+            option.Setup(entity.EntityName, entity.EntityOptionType, _prefabPanelType);
             option.AddBehaviourData(entity.EntityBehaviourData);
             _editorOptionSet.Add(option);
             option.gameObject.SetActive(_editorPanelTypeVariable.Value == _prefabPanelType);
@@ -99,6 +100,11 @@ namespace Greatwanz.GameMaker
             _buttonRoot.gameObject.SetActive(!isPlaying);
             _entitiesScrollView.gameObject.SetActive(!isPlaying);
             _scoreboard.gameObject.SetActive(isPlaying);
+
+            if (isPlaying)
+            {
+                DeselectCurrentEntity();
+            }
         }
 
         public void OnToggleEditor(bool isOn)
@@ -128,7 +134,15 @@ namespace Greatwanz.GameMaker
                 SwitchPanelToType(_inspectorPanelType);
                 foreach (var e in _editorPanelButtons)
                 {
-                    e.gameObject.SetActive(e.PanelType == _inspectorPanelType);
+                    if (e.PanelType == _inspectorPanelType)
+                    {
+                        e.SetPanelButtonName(entity.EntityName);
+                        e.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        e.gameObject.SetActive(false);
+                    }
                 }
 
                 foreach (var e in entity.EntityBehaviourData)
@@ -152,7 +166,18 @@ namespace Greatwanz.GameMaker
                 {
                     e.gameObject.SetActive(e.PanelType != _inspectorPanelType);
                 }
+                
                 SwitchPanelToType(_panelTypeBeforeInspector);
+            }
+        }
+
+        private void DeselectCurrentEntity()
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            if (_currentEntityVariable.Value)
+            {
+                _currentEntityVariable.Value.Deselect();
+                _currentEntityVariable.Set(null);
             }
         }
     }

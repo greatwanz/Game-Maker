@@ -20,10 +20,5 @@ namespace Greatwanz.GameMaker
             T prev = Value;
             Value = v;
         }
-
-        public void Set(Variable<T> v)
-        {
-            Set(v.Value);
-        }
     }
 }

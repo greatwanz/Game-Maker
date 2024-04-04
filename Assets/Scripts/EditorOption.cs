@@ -19,11 +19,11 @@ namespace Greatwanz.GameMaker
         private EditorPanelType _panelType;
         public EditorPanelType PanelType => _panelType;
 
-        public void Setup(EditorOptionType optionType, EditorPanelType editorPanelType)
+        public void Setup(string optionName, EditorOptionType optionType, EditorPanelType editorPanelType)
         {
             _optionThumbnail.sprite = optionType.thumbnail;
-            _optionName.text = optionType.optionName;
-            name = optionType.optionName;
+            _optionName.text = optionName;
+            name = optionName;
             _panelType = editorPanelType;
             _editorOptionType = optionType;
         }

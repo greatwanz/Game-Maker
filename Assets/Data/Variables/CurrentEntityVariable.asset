@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcead0a6b91f6284bb6f02f5e204eabc, type: 3}
-  m_Name: InspectorPanel
+  m_Script: {fileID: 11500000, guid: 7f00e396e4743ed47bdc66ea930cccaa, type: 3}
+  m_Name: CurrentEntityVariable
   m_EditorClassIdentifier: 
-  _isDefaultEnabled: 0
-  _isInputFieldType: 1
-  _panelName: Inspector
-  _entityOptionTypes: []
