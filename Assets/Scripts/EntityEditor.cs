@@ -20,6 +20,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
         [SerializeField] private EditorPanelButton _editorPanelButtonPrefab;
         [SerializeField] private BehaviourOption _behaviourOptionPrefab;
+        [SerializeField] private Entity _entityPrefab;
         [Header("Definitions")]
         [SerializeField] private EditorPanelType[] _editorPanelTypes;
         [Header("Data")]
@@ -36,9 +37,16 @@ namespace Greatwanz.GameMaker
 
         private EditorPanelType _panelTypeBeforeInspector;
 
-        void Start()
+        private List<EntitySaveData> _editorEntitiesSnapshot;
+
+        private void Awake()
         {
             _editorPanelButtons = new List<EditorPanelButton>();
+            _editorEntitiesSnapshot = new List<EntitySaveData>();
+        }
+
+        void Start()
+        {
             _entitiesScrollViewVisible = _entitiesScrollView.transform.position;
             var width = _entitiesScrollView.GetComponent<RectTransform>().rect.width;
             _entitiesScrollViewHidden = new Vector3(_entitiesScrollViewVisible.x + width, _entitiesScrollViewVisible.y, _entitiesScrollViewVisible.z);
@@ -105,6 +113,30 @@ namespace Greatwanz.GameMaker
             if (isPlaying)
             {
                 DeselectCurrentEntity();
+
+                var entities = FindObjectsOfType<Entity>(false);
+                foreach (var e in entities)
+                {
+                    _editorEntitiesSnapshot.Add(e.CreateEntitySaveData());
+                }
+
+            }
+            else
+            {
+                var entities = FindObjectsOfType<Entity>(false);
+
+                foreach (var e in entities)
+                {
+                    Destroy(e.gameObject);
+                }
+                
+                foreach (var e in _editorEntitiesSnapshot)
+                {
+                    var entity = Instantiate(_entityPrefab);
+                    e.SetupEntityFromSaveData(entity);
+                }
+                
+                _editorEntitiesSnapshot.Clear();
             }
         }
 

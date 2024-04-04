@@ -15,7 +15,7 @@ namespace Greatwanz.GameMaker
         public override Entity OnDrop(Vector3 position)
         {
             Entity e = Instantiate(_entity);
-            e.Setup(this);
+            e.Setup(this, optionName);
             e.transform.position = position;
             return e;
         }

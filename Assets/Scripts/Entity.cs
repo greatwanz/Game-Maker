@@ -45,12 +45,14 @@ namespace Greatwanz.GameMaker
 
     public struct EntitySaveData
     {
+        public string Name;
         public Vector3 Position;
         public EntityOptionType OptionType;
         public readonly List<EntityBehaviourData> EntityBehaviourData;
 
-        public EntitySaveData(Vector3 position, EntityOptionType optionType, List<EntityBehaviourData> entityBehaviourData)
+        public EntitySaveData(string name, Vector3 position, EntityOptionType optionType, List<EntityBehaviourData> entityBehaviourData)
         {
+            Name = name;
             Position = position;
             OptionType = optionType;
             EntityBehaviourData = new List<EntityBehaviourData>();
@@ -66,6 +68,13 @@ namespace Greatwanz.GameMaker
                 EntityBehaviourData data = new EntityBehaviourData(e.BehaviourOptionType, paramValues);
                 EntityBehaviourData.Add(data);
             }
+        }
+
+        public void SetupEntityFromSaveData(Entity entity)
+        {
+            entity.transform.position = Position;
+            entity.Setup(OptionType, Name);
+            entity.AddBehaviour(EntityBehaviourData.ToArray());
         }
     }
 
@@ -108,16 +117,16 @@ namespace Greatwanz.GameMaker
             get => _entityName;
         }
 
-        public void Setup(EntityOptionType entityOptionType)
+        public void Setup(EntityOptionType entityOptionType, string entityName)
         {
             _entityOptionType = entityOptionType;
-            _entityName = entityOptionType.optionName;
+            _entityName = entityName;
             MeshFilter.mesh = entityOptionType.mesh;
         }
 
         public EntitySaveData CreateEntitySaveData()
         {
-           return new EntitySaveData(transform.position, _entityOptionType, _entityBehaviourData);
+           return new EntitySaveData(EntityName, transform.position, _entityOptionType, _entityBehaviourData);
         }
 
         public void AddBehaviour(params EntityBehaviourData[] behaviours)

@@ -30,7 +30,7 @@ namespace Greatwanz.GameMaker
         
         public virtual void Setup(EntitySaveData data, EditorPanelType editorPanelType)
         {
-            Setup(data.OptionType.optionName, data.OptionType, editorPanelType);
+            Setup(data.Name, data.OptionType, editorPanelType);
         }
 
         public virtual void OnPointerDown(PointerEventData data)

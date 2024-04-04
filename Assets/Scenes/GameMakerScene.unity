@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -742,6 +742,7 @@ MonoBehaviour:
   _prefabEditorOptionPrefab: {fileID: 4518055625117575449, guid: 9bf7923279e243841b1854733ec190f9, type: 3}
   _editorPanelButtonPrefab: {fileID: 7838596008741584406, guid: 684634fff63525f4db024a4274aa6d4a, type: 3}
   _behaviourOptionPrefab: {fileID: 6220208711601543913, guid: daecc71ea6d3fbe428cd8c9362681ba6, type: 3}
+  _entityPrefab: {fileID: 8474118886007659290, guid: 22cbe09411e06ad4691a45f0dce9473f, type: 3}
   _editorPanelTypes:
   - {fileID: 11400000, guid: 8932cc32e4cc905479e0f3958bdbe0a6, type: 2}
   - {fileID: 11400000, guid: 3340f7d205f3092489beff287f9a0791, type: 2}
