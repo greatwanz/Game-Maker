@@ -112,9 +112,15 @@ namespace Greatwanz.GameMaker
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (_canTrigger && eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button != PointerEventData.InputButton.Left) return;
+            
+            if (_canTrigger)
             {
                 ExecuteBehaviours();
+            }
+            else
+            {
+                if(_isSelected) _isDragging = true;
             }
         }
 
@@ -155,7 +161,6 @@ namespace Greatwanz.GameMaker
             if (!_canTrigger && eventData.button == PointerEventData.InputButton.Left)
             {
                 _preDragPosition = transform.position;
-                _isDragging = true;
                 _onToggleEditorEvent.Raise(false);
             }
         }
