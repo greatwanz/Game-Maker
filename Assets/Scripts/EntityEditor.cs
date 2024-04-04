@@ -192,6 +192,8 @@ namespace Greatwanz.GameMaker
 
         private void DeselectCurrentEntity()
         {
+            if (Mouse.current.leftButton.isPressed) return;
+
             EventSystem.current.SetSelectedGameObject(null);
             if (_currentEntityVariable.Value)
             {
