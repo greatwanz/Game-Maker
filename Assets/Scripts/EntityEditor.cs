@@ -157,17 +157,20 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                foreach (Transform t in _entitiesScrollView.content)
+                if (_editorPanelTypeVariable.Value == _inspectorPanelType)
                 {
-                    if(t.gameObject.activeSelf) Destroy(t.gameObject);
+                    foreach (Transform t in _entitiesScrollView.content)
+                    {
+                        if (t.gameObject.activeSelf) Destroy(t.gameObject);
+                    }
+
+                    foreach (var e in _editorPanelButtons)
+                    {
+                        e.gameObject.SetActive(e.PanelType != _inspectorPanelType);
+                    }
+
+                    SwitchPanelToType(_panelTypeBeforeInspector);
                 }
-                
-                foreach (var e in _editorPanelButtons)
-                {
-                    e.gameObject.SetActive(e.PanelType != _inspectorPanelType);
-                }
-                
-                SwitchPanelToType(_panelTypeBeforeInspector);
             }
         }
 
