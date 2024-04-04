@@ -27,6 +27,11 @@ namespace Greatwanz.GameMaker
             _panelType = editorPanelType;
             _editorOptionType = optionType;
         }
+        
+        public virtual void Setup(EntitySaveData data, EditorPanelType editorPanelType)
+        {
+            Setup(data.OptionType.optionName, data.OptionType, editorPanelType);
+        }
 
         public virtual void OnPointerDown(PointerEventData data)
         {

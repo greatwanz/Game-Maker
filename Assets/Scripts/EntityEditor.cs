@@ -89,9 +89,9 @@ namespace Greatwanz.GameMaker
 
         public void OnSaveEntity(Entity entity)
         {
+            var data = entity.CreateEntitySaveData();
             PrefabEditorOption option = Instantiate(_prefabEditorOptionPrefab, _entitiesScrollView.content);
-            option.Setup(entity.EntityName, entity.EntityOptionType, _prefabPanelType);
-            option.AddBehaviourData(entity.EntityBehaviourData);
+            option.Setup(data, _prefabPanelType);
             _editorOptionSet.Add(option);
             option.gameObject.SetActive(_editorPanelTypeVariable.Value == _prefabPanelType);
         }

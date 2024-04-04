@@ -18,6 +18,12 @@ namespace Greatwanz.GameMaker
 
         private readonly List<BehaviourOption> _prefabEntityBehaviours = new List<BehaviourOption>();
 
+        public override void Setup(EntitySaveData data, EditorPanelType editorPanelType)
+        {
+            base.Setup(data, editorPanelType);
+            AddBehaviourData(data.EntityBehaviourData);
+        }
+        
         public void AddBehaviourData(List<EntityBehaviourData> data)
         {
             foreach (var e in data)
