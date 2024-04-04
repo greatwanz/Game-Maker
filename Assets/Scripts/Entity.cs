@@ -139,6 +139,7 @@ namespace Greatwanz.GameMaker
                 }
                 else
                 {
+                    Deselect();
                     Destroy(gameObject);
                 }
             }
