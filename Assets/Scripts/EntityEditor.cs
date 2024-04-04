@@ -14,6 +14,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private Scoreboard _scoreboard;
         [SerializeField] private ModeToggle _modeToggle;
         [SerializeField] private Text _panelVisibilityIndicator;
+        [SerializeField] private Toggle _panelVisibilityIndicatorButton;
         [Header("Prefab")]
         [SerializeField] private EditorOption _entityOptionPrefab;
         [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
@@ -107,10 +108,25 @@ namespace Greatwanz.GameMaker
             }
         }
 
+        private bool _isEditorOnPreDrag = true;
+
         public void OnToggleEditor(bool isOn)
         {
+            _panelVisibilityIndicatorButton.gameObject.SetActive(isOn);
+            if (_currentEntityVariable.Value)
+            {
+                if (!isOn)
+                {
+                    _isEditorOnPreDrag = _modeToggle.gameObject.activeSelf;
+                }
+                else
+                {
+                    isOn = _isEditorOnPreDrag;
+                }
+            }
+            
+            _entitiesScrollView.transform.position = isOn ? _entitiesScrollViewVisible : _entitiesScrollViewHidden;
             _buttonRoot.gameObject.SetActive(isOn);
-            _entitiesScrollView.gameObject.SetActive(isOn);
             _scoreboard.gameObject.SetActive(isOn);
             _modeToggle.gameObject.SetActive(isOn);
         }

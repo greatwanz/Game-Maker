@@ -737,6 +737,7 @@ MonoBehaviour:
   _scoreboard: {fileID: 1556254632}
   _modeToggle: {fileID: 188723348}
   _panelVisibilityIndicator: {fileID: 1602664225}
+  _panelVisibilityIndicatorButton: {fileID: 1016708492}
   _entityOptionPrefab: {fileID: -151912457838142913, guid: f5fc40229913cdb4ab5a9f9bb11c265c, type: 3}
   _prefabEditorOptionPrefab: {fileID: 4518055625117575449, guid: 9bf7923279e243841b1854733ec190f9, type: 3}
   _editorPanelButtonPrefab: {fileID: 7838596008741584406, guid: 684634fff63525f4db024a4274aa6d4a, type: 3}
