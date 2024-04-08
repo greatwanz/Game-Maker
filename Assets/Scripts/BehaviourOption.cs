@@ -2,23 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
 {
     public class BehaviourOption : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Prefab")]
-        [SerializeField] private BehaviourParameterOption behaviourParameterOption;
+        [SerializeField] private BehaviourOptionIntegerParameter _behaviourOptionIntegerParameterPrefab;
         [Header("Reference")]
-        [SerializeField] private UnityEngine.UI.Image _backgroundImage;
-        [SerializeField] private UnityEngine.UI.Image _behaviourImage;
-        [SerializeField] private UnityEngine.UI.Text _title;
+        [SerializeField] private Image _backgroundImage;
+        [SerializeField] private Image _behaviourImage;
+        [SerializeField] private Text _title;
 
         private Action<BehaviourOption> _removeAction;
 
         private EntityBehaviourData _entityBehaviourData;
 
-        private List<BehaviourParameterOption> _prefabEntityBehaviourParameters = new List<BehaviourParameterOption>();
+        private readonly List<BehaviourOptionIntegerParameter> _prefabEntityBehaviourParameters = new List<BehaviourOptionIntegerParameter>();
         
         public EntityBehaviourData EntityBehaviourData => _entityBehaviourData;
 
@@ -31,7 +32,7 @@ namespace Greatwanz.GameMaker
             
             foreach (var p in behaviourData.EntityParamValues)
             {
-                var param = Instantiate(behaviourParameterOption, transform);
+                var param = Instantiate(_behaviourOptionIntegerParameterPrefab, transform);
                 param.Setup(this, p.Key, p.Value);
                 _prefabEntityBehaviourParameters.Add(param);
             }

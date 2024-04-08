@@ -18,8 +18,8 @@ namespace Greatwanz.GameMaker
         [Header("Prefab")]
         [SerializeField] private EditorOption _entityOptionPrefab;
         [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
-        [SerializeField] private EditorPanelButton _editorPanelButtonPrefab;
         [SerializeField] private BehaviourOption _behaviourOptionPrefab;
+        [SerializeField] private EditorPanelButton _editorPanelButtonPrefab;
         [SerializeField] private Entity _entityPrefab;
         [Header("Definitions")]
         [SerializeField] private EditorPanelType[] _editorPanelTypes;
@@ -33,10 +33,9 @@ namespace Greatwanz.GameMaker
         private Vector3 _entitiesScrollViewVisible;
         private Vector3 _entitiesScrollViewHidden;
 
-        private List<EditorPanelButton> _editorPanelButtons;
-
         private EditorPanelType _panelTypeBeforeInspector;
 
+        private List<EditorPanelButton> _editorPanelButtons;
         private List<EntitySaveData> _editorEntitiesSnapshot;
 
         private void Awake()

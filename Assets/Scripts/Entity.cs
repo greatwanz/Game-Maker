@@ -106,9 +106,7 @@ namespace Greatwanz.GameMaker
         
         private readonly List<EntityBehaviourData> _entityBehaviourData = new List<EntityBehaviourData>();
 
-        public bool IsInteractable => _isInteractable;
         public MeshFilter MeshFilter => _meshFilter;
-        public EntityOptionType EntityOptionType => _entityOptionType;
         public List<EntityBehaviourData> EntityBehaviourData => _entityBehaviourData;
 
         public string EntityName

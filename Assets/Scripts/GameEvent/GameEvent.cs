@@ -6,23 +6,23 @@ namespace Greatwanz.GameMaker
     [CreateAssetMenu(menuName = "GameEvent/Void Game Event")]
     public class GameEvent : ScriptableObject
     {
-        List<GameEventListener> listeners = new List<GameEventListener>();
+        private readonly List<GameEventListener> _listeners = new List<GameEventListener>();
 
         public void Register(GameEventListener l)
         {
-            listeners.Add(l);
+            _listeners.Add(l);
         }
 
         public void UnRegister(GameEventListener l)
         {
-            listeners.Remove(l);
+            _listeners.Remove(l);
         }
 
         public void Raise()
         {
-            for (int i = 0; i < listeners.Count; i++)
+            for (int i = 0; i < _listeners.Count; i++)
             {
-                listeners[i].Response();
+                _listeners[i].Response();
             }
         }
     }

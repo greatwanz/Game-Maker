@@ -275,7 +275,7 @@ MonoBehaviour:
   _optionName: {fileID: 6700796793213699137}
   _onDragEditorOption: {fileID: 11400000, guid: 33e3537613fd9fd439fd1ce9ad308f81, type: 2}
   _onToggleEditorEvent: {fileID: 11400000, guid: 778d5e7b2eb32364aa0495bd9622a82c, type: 2}
-  behaviourOptionPrefab: {fileID: 6220208711601543913, guid: daecc71ea6d3fbe428cd8c9362681ba6, type: 3}
+  _behaviourOptionPrefab: {fileID: 6220208711601543913, guid: daecc71ea6d3fbe428cd8c9362681ba6, type: 3}
   _entityBehaviourRootTransform: {fileID: 6158564478228709302}
   _currentBehaviourDataSet: {fileID: 11400000, guid: f56df60a19a5b424da362f98929eb211, type: 2}
   _editorOptions: {fileID: 11400000, guid: f059ddbcfcabe1d449e9d8adc2131849, type: 2}

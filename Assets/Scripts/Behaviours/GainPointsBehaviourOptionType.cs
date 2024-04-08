@@ -6,7 +6,7 @@ namespace Greatwanz.GameMaker
     [CreateAssetMenu]
     public class GainPointsBehaviourOptionType : BehaviourOptionType
     {
-        [Header("Definition")]
+        [Header("Parameters")]
         [SerializeField] private int _pointsToGain;
         [Header("Game Events")]
         [SerializeField] private IntGameEvent _onGainPointsEvent;

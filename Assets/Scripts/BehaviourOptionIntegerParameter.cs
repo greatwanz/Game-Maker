@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Greatwanz.GameMaker
 {
-    public class BehaviourParameterOption : MonoBehaviour
+    public class BehaviourOptionIntegerParameter : MonoBehaviour
     {
         [Header("Reference")]
-        [SerializeField] private UnityEngine.UI.Text _parameterName;
-        [SerializeField] private UnityEngine.UI.InputField _parameterValue;
+        [SerializeField] private Text _parameterName;
+        [SerializeField] private InputField _parameterValue;
 
         private BehaviourOption _behaviourOption;
         

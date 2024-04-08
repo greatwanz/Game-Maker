@@ -18,13 +18,13 @@ namespace Greatwanz.GameMaker
             OnDisableLogic();
         }
 
-        public void OnEnableLogic()
+        private void OnEnableLogic()
         {
             if (gameEvent != null)
                 gameEvent.Register(this);
         }
 
-        public void OnDisableLogic()
+        private void OnDisableLogic()
         {
             if (gameEvent != null)
                 gameEvent.UnRegister(this);

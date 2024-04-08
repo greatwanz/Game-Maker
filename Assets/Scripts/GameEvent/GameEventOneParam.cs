@@ -1,27 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Greatwanz.GameMaker
 {
     public abstract class GameEventOneParam<T> : ScriptableObject
     {
-        List<GameEventListenerOneParam<T>> listeners = new List<GameEventListenerOneParam<T>>();
+        private readonly List<GameEventListenerOneParam<T>> _listeners = new List<GameEventListenerOneParam<T>>();
 
         public void Register(GameEventListenerOneParam<T> l)
         {
-            listeners.Add(l);
+            _listeners.Add(l);
         }
 
         public void UnRegister(GameEventListenerOneParam<T> l)
         {
-            listeners.Remove(l);
+            _listeners.Remove(l);
         }
 
         public void Raise(T val)
         {
-            for (int i = 0; i < listeners.Count; i++)
+            for (int i = 0; i < _listeners.Count; i++)
             {
-                listeners[i].Response(val);
+                _listeners[i].Response(val);
             }
         }
     }

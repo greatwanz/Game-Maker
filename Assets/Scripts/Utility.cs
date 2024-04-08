@@ -33,6 +33,5 @@ namespace Greatwanz.GameMaker
 
             return false;
         }
-        
     }
 }

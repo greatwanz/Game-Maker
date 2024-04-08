@@ -4,15 +4,12 @@ namespace Greatwanz.GameMaker
 {
     public class Variable<T> : ScriptableObject
     {
-        [System.NonSerialized] protected T _value;
+        [System.NonSerialized] private T _value;
 
         public T Value
         {
-            get { return _value; }
-            protected set
-            {
-                _value = value;
-            }
+            get => _value;
+            private set => _value = value;
         }
 
         public void Set(T v)

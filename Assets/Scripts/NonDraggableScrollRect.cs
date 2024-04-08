@@ -5,7 +5,6 @@ namespace Greatwanz.GameMaker
 {
     public class NonDraggableScrollRect : ScrollRect
     {
-
         public override void OnBeginDrag(PointerEventData eventData)
         {
         }

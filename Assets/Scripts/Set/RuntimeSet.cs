@@ -6,7 +6,7 @@ namespace Greatwanz.GameMaker
 {
     public class RuntimeSet<T> : ScriptableObject
     {
-        [NonSerialized] private readonly List<T> _items = new List<T>();
+        private readonly List<T> _items = new List<T>();
         
         public List<T> Items => _items;
 

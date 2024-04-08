@@ -7,7 +7,7 @@ namespace Greatwanz.GameMaker
     public class PrefabEditorOption : EditorOption
     {
         [Header("Prefab")]
-        [SerializeField] private BehaviourOption behaviourOptionPrefab;
+        [SerializeField] private BehaviourOption _behaviourOptionPrefab;
         [Header("Reference")]
         [SerializeField] private Transform _entityBehaviourRootTransform;
         [Header("Data")]
@@ -28,7 +28,7 @@ namespace Greatwanz.GameMaker
         {
             foreach (var e in data)
             {
-                var prefabEntityBehaviour = Instantiate(behaviourOptionPrefab, _entityBehaviourRootTransform);
+                var prefabEntityBehaviour = Instantiate(_behaviourOptionPrefab, _entityBehaviourRootTransform);
                 prefabEntityBehaviour.Setup(e, RemoveEntityBehaviour);
                 _prefabEntityBehaviours.Add(prefabEntityBehaviour);
             } 
