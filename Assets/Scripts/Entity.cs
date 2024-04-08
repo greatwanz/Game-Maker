@@ -185,6 +185,7 @@ namespace Greatwanz.GameMaker
                 }
                 else
                 {
+                    if (Mouse.current.leftButton.isPressed) return;
                     Deselect();
                     Destroy(gameObject);
                 }
