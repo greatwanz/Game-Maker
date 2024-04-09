@@ -9,7 +9,7 @@ namespace Greatwanz.GameMaker
     public class BehaviourOption : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Prefab")]
-        [SerializeField] private BehaviourOptionIntegerParameter _behaviourOptionIntegerParameterPrefab;
+        [SerializeField] private BehaviourOptionParameter behaviourOptionParameterPrefab;
         [Header("Reference")]
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _behaviourImage;
@@ -19,7 +19,7 @@ namespace Greatwanz.GameMaker
 
         private EntityBehaviourData _entityBehaviourData;
 
-        private readonly List<BehaviourOptionIntegerParameter> _prefabEntityBehaviourParameters = new List<BehaviourOptionIntegerParameter>();
+        private readonly List<BehaviourOptionParameter> _prefabEntityBehaviourParameters = new List<BehaviourOptionParameter>();
         
         public EntityBehaviourData EntityBehaviourData => _entityBehaviourData;
 
@@ -32,7 +32,7 @@ namespace Greatwanz.GameMaker
             
             foreach (var p in behaviourData.EntityParamValues)
             {
-                var param = Instantiate(_behaviourOptionIntegerParameterPrefab, transform);
+                var param = Instantiate(behaviourOptionParameterPrefab, transform);
                 param.Setup(this, p.Key, p.Value);
                 _prefabEntityBehaviourParameters.Add(param);
             }

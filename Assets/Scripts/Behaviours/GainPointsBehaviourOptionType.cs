@@ -20,7 +20,7 @@ namespace Greatwanz.GameMaker
         {
             return new Dictionary<string, object>()
             {
-                {nameof(_pointsToGain), _pointsToGain}
+                {nameof(_pointsToGain), _pointsToGain},
             };
         }
     }
