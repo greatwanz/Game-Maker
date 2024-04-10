@@ -87,6 +87,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private MeshRenderer _meshRenderer;
         [Header("Data")]
         [SerializeField] private EntityVariable _currentEntityVariable;
+        [SerializeField] private ColourSettings _colourSettings;
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _onSaveEntityEvent;
         [SerializeField] private EntityGameEvent _onEntitySelectedEvent;
@@ -244,13 +245,13 @@ namespace Greatwanz.GameMaker
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!_isInteractable || _canTrigger) return;
-            _meshRenderer.material.SetColor(_colourID, Color.cyan);
+            _meshRenderer.material.SetColor(_colourID, _colourSettings.SelectedColour);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (_isSelected || !_isInteractable || _canTrigger) return;
-            _meshRenderer.material.SetColor(_colourID, Color.white);
+            _meshRenderer.material.SetColor(_colourID, _colourSettings.DefaultColour);
         }
 
         public void OnSelect(BaseEventData eventData)
@@ -273,7 +274,7 @@ namespace Greatwanz.GameMaker
         public void Deselect()
         {
             _isSelected = false;
-            _meshRenderer.material.SetColor(_colourID, Color.white);
+            _meshRenderer.material.SetColor(_colourID, _colourSettings.DefaultColour);
             _onEntitySelectedEvent.Raise(null); 
             _currentEntityVariable.Set(null);
         }

@@ -11,7 +11,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] protected Image _optionThumbnail;
         [SerializeField] protected Text _optionName;
         [Header("Data")]
-        [SerializeField] private ColourSettings _colourSettings;
+        [SerializeField] protected ColourSettings _colourSettings;
         [Header("Game Event")]
         [SerializeField] protected EditorOptionGameEvent _onDragEditorOption;
         [SerializeField] protected BoolGameEvent _onToggleEditorEvent;

@@ -57,7 +57,7 @@ namespace Greatwanz.GameMaker
             if (data.button == PointerEventData.InputButton.Left)
             {
                 _currentBehaviourDataSet.Add(GetBehaviourData());
-                _background.color = Color.white;
+                _background.color = _colourSettings.DefaultColour;
                 _onToggleEditorEvent.Raise(false);
                 _onDragEditorOption.Raise(_editorOptionType);
             }
