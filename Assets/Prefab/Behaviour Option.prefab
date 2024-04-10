@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _behaviourOptionParameterPrefab: {fileID: 5387767864016195847, guid: 2ab81e9d24b1462409c00389b591426b, type: 3}
+  _colourSettings: {fileID: 11400000, guid: 53f5947ac018d3745a4de8da1c0608fd, type: 2}
   _backgroundImage: {fileID: 1127086672107703939}
   _behaviourImage: {fileID: 1751497213530630938}
   _title: {fileID: 5615090874089273187}

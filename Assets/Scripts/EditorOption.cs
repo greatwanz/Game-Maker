@@ -10,6 +10,8 @@ namespace Greatwanz.GameMaker
         [SerializeField] protected Image _background;
         [SerializeField] protected Image _optionThumbnail;
         [SerializeField] protected Text _optionName;
+        [Header("Data")]
+        [SerializeField] private ColourSettings _colourSettings;
         [Header("Game Event")]
         [SerializeField] protected EditorOptionGameEvent _onDragEditorOption;
         [SerializeField] protected BoolGameEvent _onToggleEditorEvent;
@@ -38,7 +40,7 @@ namespace Greatwanz.GameMaker
         {
             if (data.button == PointerEventData.InputButton.Left)
             {
-                _background.color = Color.white;
+                _background.color = _colourSettings.DefaultColour;
                 _onToggleEditorEvent.Raise(false);
                 _onDragEditorOption.Raise(_editorOptionType);
             }
@@ -50,12 +52,12 @@ namespace Greatwanz.GameMaker
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _background.color = Color.cyan;
+            _background.color = _colourSettings.SelectedColour;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _background.color = Color.white;
+            _background.color = _colourSettings.DefaultColour;
         }
     }
 }

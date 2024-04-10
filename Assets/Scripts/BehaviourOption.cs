@@ -10,6 +10,8 @@ namespace Greatwanz.GameMaker
     {
         [Header("Prefab")]
         [SerializeField] private BehaviourOptionParameter _behaviourOptionParameterPrefab;
+        [Header("Data")]
+        [SerializeField] private ColourSettings _colourSettings;
         [Header("Reference")]
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _behaviourImage;
@@ -59,12 +61,12 @@ namespace Greatwanz.GameMaker
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _backgroundImage.color = Color.cyan;
+            _backgroundImage.color = _colourSettings.SelectedColour;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _backgroundImage.color = Color.white;
+            _backgroundImage.color = _colourSettings.DefaultColour;
         }
     }
 }
