@@ -42,7 +42,7 @@ namespace Greatwanz.GameMaker
             if (option is BehaviourOptionType e)
             {
                 gameObject.SetActive(true);
-                _dragImage.sprite = e.thumbnail;
+                _dragImage.sprite = e.Thumbnail;
                 _editorOption = e;
             }
         }

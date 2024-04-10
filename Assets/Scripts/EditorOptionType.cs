@@ -8,9 +8,9 @@ namespace Greatwanz.GameMaker
         [SerializeField] private string _optionName;
         [SerializeField] private Sprite _thumbnail;
 
-        public string optionName => _optionName;
+        public string OptionName => _optionName;
 
-        public Sprite thumbnail => _thumbnail;
+        public Sprite Thumbnail => _thumbnail;
 
         public abstract Entity OnDrop(Vector3 position);
     }

@@ -14,14 +14,15 @@ namespace Greatwanz.GameMaker
         [SerializeField] protected EditorOptionGameEvent _onDragEditorOption;
         [SerializeField] protected BoolGameEvent _onToggleEditorEvent;
 
+        private EditorPanelType _panelType;
+        
         protected EditorOptionType _editorOptionType;
 
-        private EditorPanelType _panelType;
         public EditorPanelType PanelType => _panelType;
 
         public void Setup(string optionName, EditorOptionType optionType, EditorPanelType editorPanelType)
         {
-            _optionThumbnail.sprite = optionType.thumbnail;
+            _optionThumbnail.sprite = optionType.Thumbnail;
             _optionName.text = optionName;
             name = optionName;
             _panelType = editorPanelType;

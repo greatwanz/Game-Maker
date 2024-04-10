@@ -51,7 +51,7 @@ namespace Greatwanz.GameMaker
             if (option is EntityOptionType e)
             {
                 gameObject.SetActive(true);
-                _dragEntity.Setup(e, option.optionName);
+                _dragEntity.Setup(e, option.OptionName);
                 _editorOption = e;
             }
         }

@@ -55,7 +55,7 @@ namespace Greatwanz.GameMaker
                 foreach (var option in panelType.EntityOptionTypes)
                 {
                     EditorOption e = Instantiate(_entityOptionPrefab, _entitiesScrollView.content);
-                    e.Setup(option.optionName, option, panelType);
+                    e.Setup(option.OptionName, option, panelType);
                     _editorOptionSet.Add(e);
                 }
 
@@ -118,7 +118,6 @@ namespace Greatwanz.GameMaker
                 {
                     _editorEntitiesSnapshot.Add(e.CreateEntitySaveData());
                 }
-
             }
             else
             {
@@ -166,7 +165,6 @@ namespace Greatwanz.GameMaker
         {
             _entitiesScrollView.transform.position = isVisible ? _entitiesScrollViewVisible : _entitiesScrollViewHidden;
             _buttonRoot.gameObject.SetActive(isVisible);
-            
             _scoreboard.gameObject.SetActive(isVisible);
             _modeToggle.gameObject.SetActive(isVisible);
 

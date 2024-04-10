@@ -10,12 +10,12 @@ namespace Greatwanz.GameMaker
         [SerializeField] private Mesh _mesh;
         [SerializeField] private Entity _entity;
 
-        public Mesh mesh => _mesh;
+        public Mesh Mesh => _mesh;
 
         public override Entity OnDrop(Vector3 position)
         {
             Entity e = Instantiate(_entity);
-            e.Setup(this, optionName);
+            e.Setup(this, OptionName);
             e.transform.position = position;
             return e;
         }

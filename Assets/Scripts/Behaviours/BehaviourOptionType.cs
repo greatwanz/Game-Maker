@@ -13,9 +13,8 @@ namespace Greatwanz.GameMaker
             var mousePosition = Mouse.current.position.ReadValue();
             Vector3 curScreenPoint = new Vector3(mousePosition.x, mousePosition.y, Mathf.Abs(Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(curScreenPoint);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out var hit))
             {
                 Entity entity = hit.transform.GetComponent<Entity>();
                 if (entity)

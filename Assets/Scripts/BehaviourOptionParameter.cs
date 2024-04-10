@@ -15,13 +15,13 @@ namespace Greatwanz.GameMaker
 
         private BehaviourOption _behaviourOption;
 
-        private object _startValue;
+        private object _startingValue;
         
         public void Setup(BehaviourOption behaviourOption, string key, object value)
         {
             _behaviourOption = behaviourOption;
             _parameterName.text = key;
-            _startValue = value;
+            _startingValue = value;
             if(!(value is bool)) _parameterValue.text = value.ToString();
             _parameterValue.gameObject.SetActive(!(value is bool));
             _parameterToggle.gameObject.SetActive(value is bool);
@@ -40,29 +40,29 @@ namespace Greatwanz.GameMaker
             }
             else if (value is bool)
             {
-                _parameterToggle.SetIsOnWithoutNotify((bool)_startValue);
+                _parameterToggle.SetIsOnWithoutNotify((bool)_startingValue);
             }
         }
 
         public void GetParameterValues(ref Dictionary<string, object> parameters)
         {
-            if (_startValue is int)
+            if (_startingValue is int)
             {
                 parameters.Add(_parameterName.text, Convert.ToInt32(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is float)
+            else if (_startingValue is float)
             {
                 parameters.Add(_parameterName.text, Convert.ToSingle(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is double)
+            else if (_startingValue is double)
             {
                 parameters.Add(_parameterName.text, Convert.ToDouble(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is string)
+            else if (_startingValue is string)
             {
                 parameters.Add(_parameterName.text, _parameterValue.text);
             }
-            else if (_startValue is bool)
+            else if (_startingValue is bool)
             {
                 parameters.Add(_parameterName.text, _parameterToggle.isOn);
             }
@@ -70,23 +70,23 @@ namespace Greatwanz.GameMaker
 
         public void SetParameter()
         {
-            if(_startValue is int)
+            if(_startingValue is int)
             {
                 _behaviourOption.EntityBehaviourData.SetParameter(_parameterName.text, Convert.ToInt32(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is float)
+            else if (_startingValue is float)
             {
                 _behaviourOption.EntityBehaviourData.SetParameter(_parameterName.text, Convert.ToSingle(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is double)
+            else if (_startingValue is double)
             {
                 _behaviourOption.EntityBehaviourData.SetParameter(_parameterName.text, Convert.ToDouble(_parameterValue.text, CultureInfo.InvariantCulture));
             }
-            else if (_startValue is string)
+            else if (_startingValue is string)
             {
                 _behaviourOption.EntityBehaviourData.SetParameter(_parameterName.text, _parameterValue.text);
             }
-            else if (_startValue is bool)
+            else if (_startingValue is bool)
             {
                 _behaviourOption.EntityBehaviourData.SetParameter(_parameterName.text, _parameterToggle.isOn);
             }

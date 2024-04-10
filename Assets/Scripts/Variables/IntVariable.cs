@@ -18,7 +18,7 @@ namespace Greatwanz.GameMaker
 
             if (v is IntVariable)
             {
-                IntVariable i = (IntVariable)v;
+                IntVariable i = v;
                 prev += i.Value;
                 Set(prev);
             }

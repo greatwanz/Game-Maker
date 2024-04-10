@@ -97,6 +97,8 @@ namespace Greatwanz.GameMaker
         private bool _canTrigger;
         private bool _isSelected;
 
+        private int _colourID;
+
         private Vector3 _preDragPosition;
         private Vector3 _curScreenPoint;
 
@@ -115,11 +117,16 @@ namespace Greatwanz.GameMaker
             get => _entityName;
         }
 
+        private void Awake()
+        {
+            _colourID = Shader.PropertyToID("_Color");
+        }
+
         public void Setup(EntityOptionType entityOptionType, string entityName)
         {
             _entityOptionType = entityOptionType;
             _entityName = entityName;
-            MeshFilter.mesh = entityOptionType.mesh;
+            MeshFilter.mesh = entityOptionType.Mesh;
         }
 
         public EntitySaveData CreateEntitySaveData()
@@ -237,13 +244,13 @@ namespace Greatwanz.GameMaker
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!_isInteractable || _canTrigger) return;
-            _meshRenderer.material.SetColor("_Color", Color.cyan);
+            _meshRenderer.material.SetColor(_colourID, Color.cyan);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (_isSelected || !_isInteractable || _canTrigger) return;
-            _meshRenderer.material.SetColor("_Color", Color.white);
+            _meshRenderer.material.SetColor(_colourID, Color.white);
         }
 
         public void OnSelect(BaseEventData eventData)
@@ -266,7 +273,7 @@ namespace Greatwanz.GameMaker
         public void Deselect()
         {
             _isSelected = false;
-            _meshRenderer.material.SetColor("_Color", Color.white);
+            _meshRenderer.material.SetColor(_colourID, Color.white);
             _onEntitySelectedEvent.Raise(null); 
             _currentEntityVariable.Set(null);
         }
