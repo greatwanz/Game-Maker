@@ -15,6 +15,7 @@ namespace Greatwanz.GameMaker
         [SerializeField] private ModeToggle _modeToggle;
         [SerializeField] private Text _panelVisibilityIndicator;
         [SerializeField] private Toggle _panelVisibilityIndicatorButton;
+        [SerializeField] private InputField _entityNameInputField;
         [Header("Prefab")]
         [SerializeField] private EditorOption _entityOptionPrefab;
         [SerializeField] private PrefabEditorOption _prefabEditorOptionPrefab;
@@ -27,7 +28,6 @@ namespace Greatwanz.GameMaker
         [SerializeField] private EditorPanelTypeVariable _editorPanelTypeVariable;
         [SerializeField] private EntityVariable _currentEntityVariable;
         [SerializeField] private EditorPanelType _prefabPanelType;
-        [SerializeField] private EditorPanelType _inspectorPanelType;
         [SerializeField] private EditorOptionSet _editorOptionSet;
 
         private Vector3 _entitiesScrollViewVisible;
@@ -173,21 +173,22 @@ namespace Greatwanz.GameMaker
 
         public void OnEntitySelected(Entity entity)
         {
+            _entityNameInputField.gameObject.SetActive(entity != null);
             if (entity)
             {
-                _panelTypeBeforeInspector = _editorPanelTypeVariable.Value;
-                SwitchPanelToType(_inspectorPanelType);
+                if (_currentEntityVariable.Value != null) _currentEntityVariable.Value.Deselect();
+                _currentEntityVariable.Set(entity);
+                
+                _entityNameInputField.text = entity.EntityName;
+                
                 foreach (var e in _editorPanelButtons)
                 {
-                    if (e.PanelType == _inspectorPanelType)
-                    {
-                        e.SetPanelButtonName(entity.EntityName);
-                        e.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        e.gameObject.SetActive(false);
-                    }
+                    e.gameObject.SetActive(false);
+                }
+                
+                foreach (var e in _editorOptionSet.Items)
+                {
+                    e.gameObject.SetActive(false);
                 }
 
                 foreach (var e in entity.EntityBehaviourData)
@@ -202,20 +203,20 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                if (_editorPanelTypeVariable.Value == _inspectorPanelType)
+                _currentEntityVariable.Value.EntityName = _entityNameInputField.text;
+                _currentEntityVariable.Set(null);
+
+                foreach (var e in _editorPanelButtons)
                 {
-                    foreach (Transform t in _entitiesScrollView.content)
-                    {
-                        if (t.gameObject.activeSelf) Destroy(t.gameObject);
-                    }
-
-                    foreach (var e in _editorPanelButtons)
-                    {
-                        e.gameObject.SetActive(e.PanelType != _inspectorPanelType);
-                    }
-
-                    SwitchPanelToType(_panelTypeBeforeInspector);
+                    e.gameObject.SetActive(true);
                 }
+                
+                foreach (Transform t in _entitiesScrollView.content)
+                {
+                    if (t.gameObject.activeSelf) Destroy(t.gameObject);
+                }
+
+                SwitchPanelToType(_editorPanelTypeVariable.Value);
             }
         }
 

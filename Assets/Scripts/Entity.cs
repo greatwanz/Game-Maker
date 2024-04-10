@@ -86,7 +86,6 @@ namespace Greatwanz.GameMaker
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
         [Header("Data")]
-        [SerializeField] private EntityVariable _currentEntityVariable;
         [SerializeField] private ColourSettings _colourSettings;
         [Header("Game Event")]
         [SerializeField] private EntityGameEvent _onSaveEntityEvent;
@@ -256,13 +255,7 @@ namespace Greatwanz.GameMaker
 
         public void OnSelect(BaseEventData eventData)
         {
-            if (_currentEntityVariable.Value != null)
-            {
-                _currentEntityVariable.Value.Deselect();
-            }
-            
             _isSelected = true;
-            _currentEntityVariable.Set(this);
             _onEntitySelectedEvent.Raise(this);
         }
 
@@ -276,7 +269,6 @@ namespace Greatwanz.GameMaker
             _isSelected = false;
             _meshRenderer.material.SetColor(_colourID, _colourSettings.DefaultColour);
             _onEntitySelectedEvent.Raise(null); 
-            _currentEntityVariable.Set(null);
         }
     }
 }
