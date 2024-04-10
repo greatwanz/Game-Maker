@@ -203,19 +203,21 @@ namespace Greatwanz.GameMaker
             }
             else
             {
-                _currentEntityVariable.Value.EntityName = _entityNameInputField.text;
-                _currentEntityVariable.Set(null);
-
+                if (_currentEntityVariable.Value)
+                {
+                    _currentEntityVariable.Value.EntityName = _entityNameInputField.text;
+                    foreach (Transform t in _entitiesScrollView.content)
+                    {
+                        if (t.gameObject.activeSelf) Destroy(t.gameObject);
+                    }
+                    _currentEntityVariable.Set(null);
+                }
+                
                 foreach (var e in _editorPanelButtons)
                 {
                     e.gameObject.SetActive(true);
                 }
                 
-                foreach (Transform t in _entitiesScrollView.content)
-                {
-                    if (t.gameObject.activeSelf) Destroy(t.gameObject);
-                }
-
                 SwitchPanelToType(_editorPanelTypeVariable.Value);
             }
         }
