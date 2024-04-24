@@ -24,7 +24,7 @@ namespace Greatwanz.GameMaker
         
         public void Remove(T item)
         {
-            if(_items.Contains(item)) _items.Remove(item);
+           _items.Remove(item);
         }
 
         public void Clear()
